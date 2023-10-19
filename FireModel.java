@@ -3,13 +3,13 @@ package SimulacionFuego;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-public class FireAnimation extends BufferedImage {
+public class FireModel extends BufferedImage {
 	private Temperatures temperaturas;
 	private ColorPalette palette;
 	private int width,heigth;
 	private int posX,posY;
 	
-	public FireAnimation(int width,int heigth) {
+	public FireModel(int width, int heigth) {
 		super(width,heigth,BufferedImage.TYPE_INT_ARGB);
 		setWidth(width);
 		setHeigth(heigth);

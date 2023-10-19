@@ -14,11 +14,11 @@ import java.awt.Graphics;
 
 public class Viewer extends Canvas {
 	private BufferedImage backgroundimg;
-	private FireAnimation fireimg;
+	private FireModel fireimg;
 	private BufferStrategy bs;
 
 
-	public Viewer(int pixWidth, int pixHeight, FireAnimation fireimg) {
+	public Viewer(int pixWidth, int pixHeight, FireModel fireimg) {
 	    Dimension d = new Dimension(pixWidth, pixHeight);
 	    this.setPreferredSize(d);
 	    this.loadBackground();

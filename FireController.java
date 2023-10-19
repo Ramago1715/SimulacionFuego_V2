@@ -12,31 +12,27 @@ import java.awt.event.ItemListener;
 
 import static java.lang.Thread.sleep;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JToggleButton;
 
-import SimulacionFuego.FireAnimation;
 
-
-
-public class FireTask extends JFrame implements ComponentListener, ActionListener, ItemListener {
+public class FireController extends JFrame implements ComponentListener, ActionListener, ItemListener {
 
   
     private JToggleButton tbPlay;
     private Viewer viewer;
-    private FireAnimation animation;
+    private FireModel animation;
 
 
 
     public static void main(String[] args) {
-        FireTask et = new FireTask();
+        FireController et = new FireController();
         et.playAnimation();
     }
 
 
    
-    public FireTask() {
+    public FireController() {
         this.initClass();
         this.configureJFrame();
         this.addUIComponents();
@@ -104,7 +100,7 @@ public class FireTask extends JFrame implements ComponentListener, ActionListene
     }
 
     private void initClass() {
-        this.animation = new FireAnimation(255, 95);
+        this.animation = new FireModel(255, 95);
     }
 
     private void configureJFrame() {
