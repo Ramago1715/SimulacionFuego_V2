@@ -10,56 +10,50 @@ public class ControPanel extends JPanel{
     PaletteConfiguration paletteConfiguration;
 
     public ControPanel(){
+        this.setLayout(new GridBagLayout());
         this.animationControls = new AnimationControls();
         this.generalConfiguration = new GeneralConfiguration();
         this.temperatureConfiguration = new TemperatureConfiguration();
         this.paletteConfiguration = new PaletteConfiguration();
+
         addButtonstoPanel();
+
 
     }
 
     private void addButtonstoPanel(){
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.NORTHWEST;
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 0;
+        c.fill = GridBagConstraints.VERTICAL;
+        c.gridx = 1;
+        c.gridy = 1;
         c.weightx = 0;
         c.weighty = 0;
-        c.gridheight = 1;
-        c.gridwidth = 1;
+
         this.add(animationControls.getPlayPause(),c);
 
-        c.gridy = 1;
+        c.gridy = 2;
         this.add(animationControls.getStopButton(),c);
 
-        c.gridy = 2;
+        c.gridy = 3;
 
         this.add(new JLabel("Fire Width: "),c);
 
-        c.gridy = 3;
-        this.add(generalConfiguration.getFireWidth(),c);
-
         c.gridy = 4;
-
-        this.add(new JLabel("Fire Higth: "),c);
-
+        this.add(generalConfiguration.getFireWidth(),c);
         c.gridy = 5;
-        this.add(generalConfiguration.getFireHeigth(),c);
-
+        this.add(new JLabel("Fire Higth: "),c);
         c.gridy = 6;
-        this.add(new JLabel("Fire Position X : "),c);
-
+        this.add(generalConfiguration.getFireHeigth(),c);
         c.gridy = 7;
-        this.add(generalConfiguration.getFireXPosition(),c);
-
+        this.add(new JLabel("Fire Position X : "),c);
         c.gridy = 8;
-        this.add(new JLabel("Fire Position Y: "),c);
-
+        this.add(generalConfiguration.getFireXPosition(),c);
         c.gridy = 9;
-        this.add(generalConfiguration.getFireYPosition(),c);
-
+        this.add(new JLabel("Fire Position Y: "),c);
         c.gridy = 10;
+        this.add(generalConfiguration.getFireYPosition(),c);
+        c.gridy = 11;
         this.add(animationControls.getApply(),c);
 
 

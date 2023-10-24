@@ -1,31 +1,19 @@
 package SimulacionFuego;
-import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import static java.lang.Thread.sleep;
-
-import javax.swing.JFrame;
-import javax.swing.JToggleButton;
 
 
 public class FireController{
 
 
     private FireView fireviewer;
-    private FireModel animation;
+    private FireModel fireModel;
 
 
 
     public static void main(String[] args) {
         FireController et = new FireController();
+        et.fireviewer.setFireController(et);
         et.playAnimation();
     }
 
@@ -33,7 +21,8 @@ public class FireController{
    
     public FireController() {
         this.fireviewer = new FireView();
-        this.initClass();
+        this.fireModel = new FireModel(255, 95);
+
     }
 
 
@@ -42,7 +31,7 @@ public class FireController{
         while (true) {
             if (this.fireviewer.controPanel.animationControls.playPause.isSelected()) {
                 this.fireviewer.viewer.paintBackground();
-                this.fireviewer.viewer.paintForegroundImage(this.animation);
+                this.fireviewer.viewer.paintForegroundImage(this.fireModel);
             }
             try {
                 sleep(50);
@@ -51,16 +40,20 @@ public class FireController{
             }
         }
     }
-    private void initClass() {
-        this.animation = new FireModel(255, 95);
+
+    public FireView getFireviewer() {
+        return fireviewer;
     }
 
+    public void setFireviewer(FireView fireviewer) {
+        this.fireviewer = fireviewer;
+    }
 
+    public FireModel getFireModel() {
+        return fireModel;
+    }
 
-
-
-
-    
-
-
+    public void setFireModel(FireModel fireModel) {
+        this.fireModel = fireModel;
+    }
 }

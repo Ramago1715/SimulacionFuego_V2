@@ -89,6 +89,14 @@ public class Temperatures {
 			}
 		}
 	}
+
+	public void initblack(){
+		for(int x = 0; x<=heigth-1;x++) {
+			for(int y = 0; y<=width-1;y++) {
+				this.matriztemperatures[x][y] = 0;
+			}
+		}
+	}
 	
 	public int getWidth() {
 		return width;

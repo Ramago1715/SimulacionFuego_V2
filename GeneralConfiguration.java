@@ -18,6 +18,11 @@ public class GeneralConfiguration {
         fireHeigth = new JTextField();
         fireXPosition = new JTextField();
         fireYPosition = new JTextField();
+
+        fireHeigth.setColumns(5);
+        fireWidth.setColumns(5);
+        fireXPosition.setColumns(5);
+        fireYPosition.setColumns(5);
         /*
         backgroundImage = new BufferedImage();
         JTextField calcFramesPerSecond = new JTextField();

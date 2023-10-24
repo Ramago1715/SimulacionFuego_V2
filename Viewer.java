@@ -15,13 +15,18 @@ import java.awt.Graphics;
 public class Viewer extends Canvas {
 	private BufferedImage backgroundimg;
 	private BufferStrategy bs;
+    private int fireX;
+    private int fireY;
 
 
 	public Viewer(int pixWidth, int pixHeight) {
 	    Dimension d = new Dimension(pixWidth, pixHeight);
+        setFireX(pixWidth);
+        setFireY(pixHeight);
 	    this.setPreferredSize(d);
 	    this.loadBackground();
 	    this.bs = null;
+
 	}
 
 	private void loadBackground() {
@@ -38,7 +43,7 @@ public class Viewer extends Canvas {
         }
 
         Graphics g = bs.getDrawGraphics();
-        g.drawImage(fireimg, (int) (this.getWidth()/2.3273),(int)(this.getHeight()/1.6516),(int)(this.getWidth()/2.3273),(int)(this.getHeight()/5.3895), null);
+        g.drawImage(fireimg, (int) (getFireX()/2.3273),(int)(getFireY()/1.6516),(int)(this.getWidth()/2.3273),(int)(this.getHeight()/5.3895), null);
         fireimg.next();
 
         bs.show();
@@ -59,5 +64,30 @@ public class Viewer extends Canvas {
         
        
     }
-	
+
+
+    //Getters and setters
+    public BufferedImage getBackgroundimg() {
+        return backgroundimg;
+    }
+
+    public void setBackgroundimg(BufferedImage backgroundimg) {
+        this.backgroundimg = backgroundimg;
+    }
+
+    public int getFireX() {
+        return fireX;
+    }
+
+    public void setFireX(int fireX) {
+        this.fireX = fireX;
+    }
+
+    public int getFireY() {
+        return fireY;
+    }
+
+    public void setFireY(int fireY) {
+        this.fireY = fireY;
+    }
 }

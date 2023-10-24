@@ -31,7 +31,7 @@ public class FireModel extends BufferedImage {
 	}
 	
 	
-	private void createFireImage() {
+	public void createFireImage() {
 		
 		for(posX = 0;posX<=this.heigth -2;posX++) {
 			for(posY = 0; posY<=this.width -1;posY++) {
@@ -43,6 +43,17 @@ public class FireModel extends BufferedImage {
 		}
 		
 	}
+	public void deletecolors(){
+		for(posX = 0;posX<this.heigth;posX++) {
+			for(posY = 0; posY<this.width;posY++) {
+				int temp = this.temperaturas.getTemp(posX, posY);
+				int ARGB = this.palette.palette.get(temp).getARGB();
+				this.setRGB(posY, posX,ARGB);
+
+			}
+		}
+	}
+
 	public int getWidth() {
 		return width;
 	}
@@ -67,6 +78,20 @@ public class FireModel extends BufferedImage {
 	public void setPosY(int posY) {
 		this.posY = posY;
 	}
-	
-	
+
+	public Temperatures getTemperaturas() {
+		return temperaturas;
+	}
+
+	public void setTemperaturas(Temperatures temperaturas) {
+		this.temperaturas = temperaturas;
+	}
+
+	public ColorPalette getPalette() {
+		return palette;
+	}
+
+	public void setPalette(ColorPalette palette) {
+		this.palette = palette;
+	}
 }
