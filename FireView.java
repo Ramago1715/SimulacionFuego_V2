@@ -8,40 +8,45 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
     Viewer viewer;
     ControPanel controPanel;
     public FireView(){
-        configureJFrame();
+        this.controPanel = new ControPanel();
+        this.viewer = new Viewer(512,512);
+        this.controPanel.setVisible(true);
+        this.viewer.setVisible(true);
         this.configureJFrame();
         this.addUIComponents();
+        this.pack();
     }
 
     public void addUIComponents() {
         Container panel;
         panel = this.getContentPane();
         this.addViewerToPane(panel);
-        this.addButtonsToPane(panel);
+        this.addControlpaneltoPanel(panel);
     }
 
-    private void addButtonsToPane(Container panel) {
+    private void addControlpaneltoPanel(Container panel) {
         GridBagConstraints c = new GridBagConstraints();
 
-        c.anchor = GridBagConstraints.NORTH;
-        c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.NORTHWEST;
+
         c.gridx = 0;
+        c.gridy =0;
         c.weightx = 0;
         c.weighty = 0;
-        c.gridheight = 2;
-        c.gridwidth = 2;
-        c.gridy =1;
-        this.tbPlay = new JToggleButton("Play/Stop");
-        this.tbPlay.addActionListener(this);
-        panel.add(this.tbPlay, c);
+
+        this.controPanel.animationControls.getPlayPause().addComponentListener(this);
+        this.controPanel.animationControls.getApply().addComponentListener(this);
+        this.controPanel.animationControls.getStopButton().addComponentListener(this);
+        panel.add(this.controPanel, c);
+
     }
 
     private void addViewerToPane(Container panel) {
         GridBagConstraints c = new GridBagConstraints();
 
-        c.anchor = GridBagConstraints.SOUTH;
+        c.anchor = GridBagConstraints.NORTH;
         c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy = 0;
         c.weightx = 1;
         c.weighty = 1;
@@ -56,12 +61,28 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridBagLayout());
         this.addComponentListener(this);
+        setVisible(true);
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        String str = e.getActionCommand();
+        switch (str) {
+            case "Play/Pause":
+                System.out.println("hgo");
+                break;
+            case "Apply":
+                int fireWidth = Integer.parseInt(this.controPanel.generalConfiguration.fireWidth.getText());
+                int fireHeigth = Integer.parseInt(this.controPanel.generalConfiguration.fireHeigth.getText());
+                int fireXPosition = Integer.parseInt(this.controPanel.generalConfiguration.fireXPosition.getText());
+                int fireYPosition = Integer.parseInt(this.controPanel.generalConfiguration.fireYPosition.getText());
+                break;
+            case "Stop":
+                System.out.println("hola");
+                break;
+            default:
+        }
     }
 
     @Override

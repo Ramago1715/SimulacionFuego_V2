@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JToggleButton;
 
 
-public class FireController extends JFrame {
+public class FireController{
 
 
     private FireView fireviewer;
@@ -32,16 +32,15 @@ public class FireController extends JFrame {
 
    
     public FireController() {
+        this.fireviewer = new FireView();
         this.initClass();
-        this.setVisible(true);
-        this.pack();
     }
 
 
    
     public void playAnimation() {
         while (true) {
-            if (this.tbPlay.isSelected()) {
+            if (this.fireviewer.controPanel.animationControls.playPause.isSelected()) {
                 this.fireviewer.viewer.paintBackground();
                 this.fireviewer.viewer.paintForegroundImage(this.animation);
             }
