@@ -64,6 +64,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.setLayout(new GridBagLayout());
         this.addComponentListener(this);
         setVisible(true);
+        this.setResizable(false);
     }
 
 

@@ -32,6 +32,7 @@ public class FireController{
             if (this.fireviewer.controPanel.animationControls.playPause.isSelected()) {
                 this.fireviewer.viewer.paintBackground();
                 this.fireviewer.viewer.paintForegroundImage(this.fireModel);
+
             }
             try {
                 sleep(50);

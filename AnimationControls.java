@@ -40,19 +40,19 @@ public class AnimationControls extends JPanel {
     private void stylebuttons(){
         Border compound = new CompoundBorder(new LineBorder(Color.white),new EmptyBorder(50,2,50,2));
         getPlayPause().setBorder(compound);
-        getPlayPause().setPreferredSize(new Dimension(110,35));
+        getPlayPause().setPreferredSize(new Dimension(115,35));
         getPlayPause().setForeground(Color.white);
-        getPlayPause().setBackground(Color.cyan);
+        getPlayPause().setBackground(new Color(118,182,188));
 
         getApply().setBorder(compound);
-        getApply().setPreferredSize(new Dimension(110,35));
+        getApply().setPreferredSize(new Dimension(115,35));
         getApply().setForeground(Color.white);
-        getApply().setBackground(Color.RED);
+        getApply().setBackground(new Color(126,180,136));
 
         getStopButton().setBorder(compound);
-        getStopButton().setPreferredSize(new Dimension(110,35));
+        getStopButton().setPreferredSize(new Dimension(115,35));
         getStopButton().setForeground(Color.white);
-        getStopButton().setBackground(Color.DARK_GRAY);
+        getStopButton().setBackground(new Color(249,199,132));
 
 
     }
