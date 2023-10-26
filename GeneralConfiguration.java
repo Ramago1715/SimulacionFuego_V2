@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GeneralConfiguration {
+public class GeneralConfiguration extends JPanel {
     JTextField fireWidth;
     JTextField fireHeigth;
     JTextField fireXPosition;
@@ -14,15 +14,13 @@ public class GeneralConfiguration {
     JTextField showFramesPerSecond;
 
     public GeneralConfiguration(){
+        this.setLayout(new GridBagLayout());
         fireWidth = new JTextField();
         fireHeigth = new JTextField();
         fireXPosition = new JTextField();
         fireYPosition = new JTextField();
-
-        fireHeigth.setColumns(5);
-        fireWidth.setColumns(5);
-        fireXPosition.setColumns(5);
-        fireYPosition.setColumns(5);
+        addbuttonstopanel();
+        stylebuttons();
         /*
         backgroundImage = new BufferedImage();
         JTextField calcFramesPerSecond = new JTextField();
@@ -30,6 +28,53 @@ public class GeneralConfiguration {
         */
 
     }
+
+    private void addbuttonstopanel(){
+        JLabel Label;
+        GridBagConstraints c = new GridBagConstraints();
+        c.anchor = GridBagConstraints.NORTHWEST;
+        c.fill = GridBagConstraints.VERTICAL;
+        c.gridx = 1;
+        c.gridy = 1;
+
+        Label =  new JLabel("Fire Width: ");
+        Label.setFont(new Font("Italic", Font.ITALIC,15));
+        this.add(Label,c);
+
+        c.gridy = 2;
+        this.add(getFireWidth(),c);
+        c.gridy = 3;
+
+        Label =  new JLabel("Fire Height: ");
+        Label.setFont(new Font("Italic", Font.ITALIC,15));
+        this.add(Label,c);
+
+        c.gridy = 4;
+        this.add(getFireHeigth(),c);
+        c.gridy = 5;
+
+        Label =  new JLabel("Fire Position X: ");
+        Label.setFont(new Font("Italic", Font.ITALIC,15));
+        this.add(Label,c);
+
+        c.gridy = 6;
+        this.add(getFireXPosition(),c);
+        c.gridy = 7;
+
+        Label =  new JLabel("Fire Position Y: ");
+        Label.setFont(new Font("Italic", Font.ITALIC,15));
+        this.add(Label,c);
+        c.gridy = 8;
+        this.add(getFireYPosition(),c);
+    }
+    private  void stylebuttons(){
+        this.fireHeigth.setColumns(10);
+        this.fireWidth.setColumns(10);
+        this.fireXPosition.setColumns(10);
+        this.fireYPosition.setColumns(10);
+     
+    }
+
 
     public JTextField getFireWidth() {
         return fireWidth;

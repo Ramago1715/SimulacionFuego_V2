@@ -1,17 +1,66 @@
 package SimulacionFuego;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 
-public class AnimationControls {
+public class AnimationControls extends JPanel {
     JToggleButton playPause;
     JButton apply;
     JButton stopButton;
 
     public AnimationControls(){
-        this.playPause = new JToggleButton("Play/Pause");
-        this.apply = new JButton("Apply");
-        this.stopButton = new JButton("Stop");
+        this.setLayout(new GridBagLayout());
+        setPlayPause(new JToggleButton("Play/Pause"));
+        setApply(new JButton("Apply"));
+        setStopButton(new JButton("Stop"));
+        stylebuttons();
+        addbuttonstopanel();
+
     }
+
+    private void addbuttonstopanel(){
+        GridBagConstraints c = new GridBagConstraints();
+        c.anchor = GridBagConstraints.NORTHWEST;
+        c.fill = GridBagConstraints.VERTICAL;
+        c.gridx = 1;
+        c.gridy = 1;
+
+        this.add(getPlayPause(),c);
+        c.gridy = 2;
+        this.add(getStopButton(),c);
+        c.gridy = 3;
+        this.add(getApply(),c);
+
+    }
+
+    private void stylebuttons(){
+        Border compound = new CompoundBorder(new LineBorder(Color.white),new EmptyBorder(50,2,50,2));
+        getPlayPause().setBorder(compound);
+        getPlayPause().setPreferredSize(new Dimension(110,35));
+        getPlayPause().setForeground(Color.white);
+        getPlayPause().setBackground(Color.cyan);
+
+        getApply().setBorder(compound);
+        getApply().setPreferredSize(new Dimension(110,35));
+        getApply().setForeground(Color.white);
+        getApply().setBackground(Color.RED);
+
+        getStopButton().setBorder(compound);
+        getStopButton().setPreferredSize(new Dimension(110,35));
+        getStopButton().setForeground(Color.white);
+        getStopButton().setBackground(Color.DARK_GRAY);
+
+
+    }
+
+
+
+
+
 
     public JToggleButton getPlayPause() {
         return playPause;
