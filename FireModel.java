@@ -21,9 +21,7 @@ public class FireModel extends BufferedImage {
 		palette.addcolortotarget(112,new Color(235,235,40,250));
 		palette.addcolortotarget(130,new Color(255,255,200,255));
 		palette.calc();
-		
-		
-		
+
 	}
 	public void next() {
 		createFireImage();

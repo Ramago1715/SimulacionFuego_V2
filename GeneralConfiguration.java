@@ -1,24 +1,31 @@
 package SimulacionFuego;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GeneralConfiguration extends JPanel {
-    JTextField fireWidth;
-    JTextField fireHeigth;
-    JTextField fireXPosition;
-    JTextField fireYPosition;
+    JFormattedTextField fireWidth;
+    JFormattedTextField fireHeigth;
+    JFormattedTextField fireXPosition;
+    JFormattedTextField fireYPosition;
     BufferedImage backgroundImage;
-    JTextField calcFramesPerSecond;
-    JTextField showFramesPerSecond;
+    JFormattedTextField calcFramesPerSecond;
+    JFormattedTextField showFramesPerSecond;
 
     public GeneralConfiguration(){
+        NumberFormatter formatter = new NumberFormatter();
+        formatter.setValueClass(Integer.class);
+        formatter.setMinimum(1);
+        formatter.setMaximum(Integer.MAX_VALUE);
+        formatter.setAllowsInvalid(false);
+        formatter.setCommitsOnValidEdit(true);
         this.setLayout(new GridBagLayout());
-        fireWidth = new JTextField();
-        fireHeigth = new JTextField();
-        fireXPosition = new JTextField();
-        fireYPosition = new JTextField();
+        fireWidth = new JFormattedTextField(formatter);
+        fireHeigth = new JFormattedTextField(formatter);
+        fireXPosition = new JFormattedTextField(formatter);
+        fireYPosition = new JFormattedTextField(formatter);
         addbuttonstopanel();
         stylebuttons();
         /*
@@ -68,6 +75,8 @@ public class GeneralConfiguration extends JPanel {
         this.add(getFireYPosition(),c);
     }
     private  void stylebuttons(){
+
+
         this.fireHeigth.setColumns(10);
         this.fireWidth.setColumns(10);
         this.fireXPosition.setColumns(10);
@@ -80,7 +89,7 @@ public class GeneralConfiguration extends JPanel {
         return fireWidth;
     }
 
-    public void setFireWidth(JTextField fireWidth) {
+    public void setFireWidth(JFormattedTextField fireWidth) {
         this.fireWidth = fireWidth;
     }
 
@@ -88,7 +97,7 @@ public class GeneralConfiguration extends JPanel {
         return fireHeigth;
     }
 
-    public void setFireHeigth(JTextField fireHeigth) {
+    public void setFireHeigth(JFormattedTextField fireHeigth) {
         this.fireHeigth = fireHeigth;
     }
 
@@ -96,7 +105,7 @@ public class GeneralConfiguration extends JPanel {
         return fireXPosition;
     }
 
-    public void setFireXPosition(JTextField fireXPosition) {
+    public void setFireXPosition(JFormattedTextField fireXPosition) {
         this.fireXPosition = fireXPosition;
     }
 
@@ -104,7 +113,7 @@ public class GeneralConfiguration extends JPanel {
         return fireYPosition;
     }
 
-    public void setFireYPosition(JTextField fireYPosition) {
+    public void setFireYPosition(JFormattedTextField fireYPosition) {
         this.fireYPosition = fireYPosition;
     }
 
@@ -120,7 +129,7 @@ public class GeneralConfiguration extends JPanel {
         return calcFramesPerSecond;
     }
 
-    public void setCalcFramesPerSecond(JTextField calcFramesPerSecond) {
+    public void setCalcFramesPerSecond(JFormattedTextField calcFramesPerSecond) {
         this.calcFramesPerSecond = calcFramesPerSecond;
     }
 
@@ -128,7 +137,7 @@ public class GeneralConfiguration extends JPanel {
         return showFramesPerSecond;
     }
 
-    public void setShowFramesPerSecond(JTextField showFramesPerSecond) {
+    public void setShowFramesPerSecond(JFormattedTextField showFramesPerSecond) {
         this.showFramesPerSecond = showFramesPerSecond;
     }
 }
