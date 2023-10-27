@@ -34,7 +34,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.pack();
 
     }
-
+/**G**/
 
     public void addUIComponents() {
         Container panel;
