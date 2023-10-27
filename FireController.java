@@ -5,7 +5,7 @@ import static java.lang.Thread.sleep;
 
 public class FireController{
 
-
+    private DTOGeneralParameters dtoGeneralParameters;
     private FireView fireviewer;
     private FireModel fireModel;
 
@@ -20,8 +20,10 @@ public class FireController{
 
    
     public FireController() {
+        this.dtoGeneralParameters = new DTOGeneralParameters();
         this.fireviewer = new FireView();
-        this.fireModel = new FireModel(255, 95);
+        this.fireModel = new FireModel(dtoGeneralParameters);
+
 
     }
 
@@ -29,9 +31,14 @@ public class FireController{
    
     public void playAnimation() {
         while (true) {
-            if (this.fireviewer.controPanel.animationControls.playPause.isSelected()) {
-                this.fireviewer.viewer.paintBackground();
-                this.fireviewer.viewer.paintForegroundImage(this.fireModel);
+            if(fireviewer.getUpdate()){
+                setDtoGeneralParameters(this.fireviewer.getDtoGeneralParameters());
+                this.fireModel = new FireModel(dtoGeneralParameters);
+                this.fireviewer.setUpdate(false);
+            }
+            if (this.fireviewer.getControPanel().animationControls.playPause.isSelected()) {
+                this.fireviewer.getViewer().paintBackground();
+                this.fireviewer.getViewer().paintForegroundImage(this.fireModel);
 
             }
             try {
@@ -56,5 +63,13 @@ public class FireController{
 
     public void setFireModel(FireModel fireModel) {
         this.fireModel = fireModel;
+    }
+
+    public DTOGeneralParameters getDtoGeneralParameters() {
+        return dtoGeneralParameters;
+    }
+
+    public void setDtoGeneralParameters(DTOGeneralParameters dtoGeneralParameters) {
+        this.dtoGeneralParameters = dtoGeneralParameters;
     }
 }

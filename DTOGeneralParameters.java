@@ -9,7 +9,10 @@ public class DTOGeneralParameters {
    private int showFramesPerSecond;
 
     public DTOGeneralParameters(){
-
+        this.fireWidth = 60;
+        this.fireHeigth = 20;
+        this.fireXPosition = 100;
+        this.fireYPosition = 50;
     }
 
     public int getFireWidth() {

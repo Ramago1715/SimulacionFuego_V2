@@ -84,6 +84,13 @@ public class GeneralConfiguration extends JPanel {
      
     }
 
+    public static void setdefaultvalues(){
+
+    }
+
+
+
+
 
     public JTextField getFireWidth() {
         return fireWidth;

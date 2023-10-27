@@ -5,18 +5,23 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class FireView extends JFrame implements ComponentListener, ActionListener, ItemListener{
-    Viewer viewer;
-    ControPanel controPanel;
-    FireController fireController;
+    private Viewer viewer;
+    private ControPanel controPanel;
+    private FireController fireController;
+    private DTOGeneralParameters dtoGeneralParameters;
+    private Boolean update;
 
     public  FireView(){
+        this.update = false;
         this.controPanel = new ControPanel();
         this.viewer = new Viewer(512,512);
         this.controPanel.setVisible(true);
         this.viewer.setVisible(true);
+        this.dtoGeneralParameters = new DTOGeneralParameters();
         this.configureJFrame();
         this.addUIComponents();
         this.pack();
+
     }
 
 
@@ -76,15 +81,11 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
                 break;
             case "Apply":
-
-                int fireWidth = Integer.parseInt(this.controPanel.generalConfiguration.fireWidth.getText());
-                int fireHeigth = Integer.parseInt(this.controPanel.generalConfiguration.fireHeigth.getText());
-                int fireXPosition = Integer.parseInt(this.controPanel.generalConfiguration.fireXPosition.getText());
-                int fireYPosition = Integer.parseInt(this.controPanel.generalConfiguration.fireYPosition.getText());
-                FireModel newfire = new FireModel(fireWidth,fireHeigth);
-                this.viewer.paintForegroundImage(newfire);
-                this.viewer.setFireX(fireXPosition);
-                this.viewer.setFireY(fireYPosition);
+                this.dtoGeneralParameters.setFireWidth(Integer.parseInt(this.controPanel.generalConfiguration.fireWidth.getText()));
+                this.dtoGeneralParameters.setFireHeigth(Integer.parseInt(this.controPanel.generalConfiguration.fireHeigth.getText()));
+                this.dtoGeneralParameters.setFireXPosition(Integer.parseInt(this.controPanel.generalConfiguration.fireXPosition.getText()));
+                this.dtoGeneralParameters.setFireYPosition(Integer.parseInt(this.controPanel.generalConfiguration.fireYPosition.getText()));
+                this.update = true;
                 this.controPanel.animationControls.stopButton.doClick();
 
                 break;
@@ -155,5 +156,21 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
     public void setFireController(FireController fireController) {
         this.fireController = fireController;
+    }
+
+    public DTOGeneralParameters getDtoGeneralParameters() {
+        return dtoGeneralParameters;
+    }
+
+    public void setDtoGeneralParameters(DTOGeneralParameters dtoGeneralParameters) {
+        this.dtoGeneralParameters = dtoGeneralParameters;
+    }
+
+    public Boolean getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(Boolean update) {
+        this.update = update;
     }
 }
