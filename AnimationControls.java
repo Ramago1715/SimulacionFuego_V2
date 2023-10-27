@@ -12,11 +12,14 @@ public class AnimationControls extends JPanel {
     JButton apply;
     JButton stopButton;
 
+    JButton changebackgroundimage;
+
     public AnimationControls(){
         this.setLayout(new GridBagLayout());
         setPlayPause(new JToggleButton("Play/Pause"));
         setApply(new JButton("Apply"));
         setStopButton(new JButton("Stop"));
+        setChangebackgroundimage(new JButton("Cambiar Fondo"));
         stylebuttons();
         addbuttonstopanel();
 
@@ -34,6 +37,8 @@ public class AnimationControls extends JPanel {
         this.add(getStopButton(),c);
         c.gridy = 3;
         this.add(getApply(),c);
+        c.gridy = 4;
+        this.add(getChangebackgroundimage(),c);
 
     }
 
@@ -54,6 +59,10 @@ public class AnimationControls extends JPanel {
         getStopButton().setForeground(Color.white);
         getStopButton().setBackground(new Color(249,199,132));
 
+        getChangebackgroundimage().setBorder(compound);
+        getChangebackgroundimage().setPreferredSize(new Dimension(115,35));
+        getChangebackgroundimage().setForeground(Color.white);
+        getChangebackgroundimage().setBackground(new Color(118,182,188));
 
     }
 
@@ -84,5 +93,13 @@ public class AnimationControls extends JPanel {
 
     public void setStopButton(JButton stopButton) {
         this.stopButton = stopButton;
+    }
+
+    public JButton getChangebackgroundimage() {
+        return changebackgroundimage;
+    }
+
+    public void setChangebackgroundimage(JButton changebackgroundimage) {
+        this.changebackgroundimage = changebackgroundimage;
     }
 }

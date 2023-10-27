@@ -43,7 +43,8 @@ public class Viewer extends Canvas {
         }
 
         Graphics g = bs.getDrawGraphics();
-        g.drawImage(fireimg, (int) (getFireX()/2.3273),(int)(getFireY()/1.6516),(int)(this.getWidth()/2.3273),(int)(this.getHeight()/5.3895), null);
+        g.drawImage(fireimg, fireimg.getPosX(),fireimg.getPosY(),fireimg.getWidth(),fireimg.getHeight(), null);
+        System.out.println(fireimg.getPosX() +"      "+fireimg.getPosY() + "       " + fireimg.getWidth() + "      " + fireimg.getHeigth());
 
         fireimg.next();
 

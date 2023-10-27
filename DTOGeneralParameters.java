@@ -1,5 +1,7 @@
 package SimulacionFuego;
 
+import javax.swing.*;
+
 public class DTOGeneralParameters {
    private int fireWidth;
    private int fireHeigth;
@@ -8,11 +10,18 @@ public class DTOGeneralParameters {
    private int calcFramesPerSecond;
    private int showFramesPerSecond;
 
+   private String resolucion;
+   private String nombrebackground;
+   private String carpetapadre;
+
     public DTOGeneralParameters(){
-        this.fireWidth = 60;
-        this.fireHeigth = 20;
-        this.fireXPosition = 100;
-        this.fireYPosition = 50;
+        this.fireWidth = 200;
+        this.fireHeigth = 210;
+        this.fireXPosition = 110;
+        this.fireYPosition = 100;
+        this.resolucion = "512x512";
+        this.nombrebackground = "ChimeneaDefault";
+        this.carpetapadre = "SimulacionFuegoV2";
     }
 
     public int getFireWidth() {
@@ -61,5 +70,29 @@ public class DTOGeneralParameters {
 
     public void setShowFramesPerSecond(int showFramesPerSecond) {
         this.showFramesPerSecond = showFramesPerSecond;
+    }
+
+    public String getResolucion() {
+        return resolucion;
+    }
+
+    public void setResolucion(String resolucion) {
+        this.resolucion = resolucion;
+    }
+
+    public String getNombrebackground() {
+        return nombrebackground;
+    }
+
+    public void setNombrebackground(String nombrebackground) {
+        this.nombrebackground = nombrebackground;
+    }
+
+    public String getCarpetapadre() {
+        return carpetapadre;
+    }
+
+    public void setCarpetapadre(String carpetapadre) {
+        this.carpetapadre = carpetapadre;
     }
 }

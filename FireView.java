@@ -1,8 +1,13 @@
 package SimulacionFuego;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class FireView extends JFrame implements ComponentListener, ActionListener, ItemListener{
     private Viewer viewer;
@@ -10,6 +15,9 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
     private FireController fireController;
     private DTOGeneralParameters dtoGeneralParameters;
     private Boolean update;
+    JTextField nameBack;
+    JTextField carpetapadre;
+    JTextField resolucion;
 
     public  FireView(){
         this.update = false;
@@ -18,6 +26,9 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.setVisible(true);
         this.viewer.setVisible(true);
         this.dtoGeneralParameters = new DTOGeneralParameters();
+        nameBack = new JTextField();
+        carpetapadre = new JTextField();
+        resolucion = new JTextField();
         this.configureJFrame();
         this.addUIComponents();
         this.pack();
@@ -44,7 +55,18 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.animationControls.getPlayPause().addActionListener(this);
         this.controPanel.animationControls.getApply().addActionListener(this);
         this.controPanel.animationControls.getStopButton().addActionListener(this);
+        this.controPanel.animationControls.getChangebackgroundimage().addActionListener(this);
         panel.add(this.controPanel, c);
+        c.gridy = 1;
+        nameBack = new JTextField(this.dtoGeneralParameters.getNombrebackground());
+        this.add(nameBack,c);
+        c.gridy = 2;
+        carpetapadre = new JTextField(this.dtoGeneralParameters.getCarpetapadre());
+        this.add(carpetapadre,c);
+        resolucion = new JTextField(this.dtoGeneralParameters.getResolucion());
+        c.gridy = 3;
+        this.add(resolucion,c);
+
 
     }
 
@@ -57,11 +79,11 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         c.gridy = 0;
         c.weightx = 1;
         c.weighty = 1;
-        c.gridheight = 1;
         c.gridwidth = 1;
-
-
         panel.add(this.viewer, c);
+        this.resolucion.setColumns(10);
+        this.carpetapadre.setColumns(10);
+        this.nameBack.setColumns(10);
     }
 
     private void configureJFrame() {
@@ -95,19 +117,37 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                 this.fireController.getFireModel().deletecolors();
                 this.viewer.paintBackground();
                 this.viewer.paintForegroundImage(this.getFireController().getFireModel());
+            case "Cambiar Fondo":
+                JFileChooser fileChooser = new JFileChooser();
+                FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Imagenes", "jpg", "jpeg", "png", "gif", "bmp");
+                fileChooser.setFileFilter(imageFilter);
+                int resultado = fileChooser.showOpenDialog(this);
+                if (resultado == JFileChooser.APPROVE_OPTION) {
+                    File backgroundFile = fileChooser.getSelectedFile();
+                    String nombrebackground = backgroundFile.getName();
+                    this.nameBack.setText(nombrebackground);
+                    String carpetapadre = backgroundFile.getParentFile().getName();
+                    this.carpetapadre.setText(carpetapadre);
 
+                    try {
+                        BufferedImage backgroundImage = ImageIO.read(backgroundFile);
+                        this.viewer.setBackgroundimg(backgroundImage);
+                        this.controPanel.animationControls.stopButton.doClick();
+                        String resolucion = backgroundImage.getHeight() + "x" + backgroundImage.getWidth();
+                        this.resolucion.setText(resolucion);
 
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
 
-
-
-
-
-
-
+                }
                 break;
             default:
         }
     }
+
+
+
 
     @Override
     public void componentResized(ComponentEvent e) {

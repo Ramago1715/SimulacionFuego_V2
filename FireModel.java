@@ -12,9 +12,7 @@ public class FireModel extends BufferedImage {
 	public FireModel(DTOGeneralParameters dtoGeneralParameters) {
 		super(dtoGeneralParameters.getFireWidth(),dtoGeneralParameters.getFireHeigth(),BufferedImage.TYPE_INT_ARGB);
 		setWidth(dtoGeneralParameters.getFireWidth());
-		System.out.println(this.width);
 		setHeigth(dtoGeneralParameters.getFireHeigth());
-		System.out.println(this.heigth);
 		setPosX(dtoGeneralParameters.getFireXPosition());
 		setPosY(dtoGeneralParameters.getFireYPosition());
 		this.temperaturas = new Temperatures(this.width,this.heigth,15,10);

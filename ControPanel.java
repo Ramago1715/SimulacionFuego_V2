@@ -32,6 +32,7 @@ public class ControPanel extends JPanel{
         this.add(animationControls,c);
         c.gridy = 4;
         this.add(generalConfiguration,c);
+
     }
     private  void styleControls(){
     animationControls.setFont(new Font("Italic", Font.ITALIC,10));

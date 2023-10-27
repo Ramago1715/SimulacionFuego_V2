@@ -10,9 +10,11 @@ public class GeneralConfiguration extends JPanel {
     JFormattedTextField fireHeigth;
     JFormattedTextField fireXPosition;
     JFormattedTextField fireYPosition;
-    BufferedImage backgroundImage;
     JFormattedTextField calcFramesPerSecond;
     JFormattedTextField showFramesPerSecond;
+    private String resolucion;
+    private String nombrebackground;
+    private String carpetapadre;
 
     public GeneralConfiguration(){
         NumberFormatter formatter = new NumberFormatter();
@@ -26,6 +28,7 @@ public class GeneralConfiguration extends JPanel {
         fireHeigth = new JFormattedTextField(formatter);
         fireXPosition = new JFormattedTextField(formatter);
         fireYPosition = new JFormattedTextField(formatter);
+
         addbuttonstopanel();
         stylebuttons();
         /*
@@ -73,6 +76,9 @@ public class GeneralConfiguration extends JPanel {
         this.add(Label,c);
         c.gridy = 8;
         this.add(getFireYPosition(),c);
+
+
+
     }
     private  void stylebuttons(){
 
@@ -84,9 +90,7 @@ public class GeneralConfiguration extends JPanel {
      
     }
 
-    public static void setdefaultvalues(){
 
-    }
 
 
 
@@ -124,13 +128,13 @@ public class GeneralConfiguration extends JPanel {
         this.fireYPosition = fireYPosition;
     }
 
-    public BufferedImage getBackgroundImage() {
+   /* public BufferedImage getBackgroundImage() {
         return backgroundImage;
     }
 
     public void setBackgroundImage(BufferedImage backgroundImage) {
         this.backgroundImage = backgroundImage;
-    }
+    }*/
 
     public JTextField getCalcFramesPerSecond() {
         return calcFramesPerSecond;
@@ -147,4 +151,5 @@ public class GeneralConfiguration extends JPanel {
     public void setShowFramesPerSecond(JFormattedTextField showFramesPerSecond) {
         this.showFramesPerSecond = showFramesPerSecond;
     }
+
 }
