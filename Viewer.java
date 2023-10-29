@@ -14,16 +14,19 @@ import java.awt.Graphics;
 
 public class Viewer extends Canvas {
 	private BufferedImage backgroundimg;
-	private FireModel fireimg;
 	private BufferStrategy bs;
+    private int fireX;
+    private int fireY;
 
 
-	public Viewer(int pixWidth, int pixHeight, FireModel fireimg) {
+	public Viewer(int pixWidth, int pixHeight) {
 	    Dimension d = new Dimension(pixWidth, pixHeight);
+        setFireX(pixWidth);
+        setFireY(pixHeight);
 	    this.setPreferredSize(d);
 	    this.loadBackground();
-	    this.fireimg = fireimg;
 	    this.bs = null;
+
 	}
 
 	private void loadBackground() {
@@ -33,16 +36,15 @@ public class Viewer extends Canvas {
         }	
 	}
 	
-	public void paintForegroundImage() {
+	public void paintForegroundImage(FireModel fireimg) {
         if (this.bs == null) {
             this.createBufferStrategy(2);
             bs = this.getBufferStrategy();
         }
 
         Graphics g = bs.getDrawGraphics();
-        g.drawImage(this.fireimg, (int) (this.getWidth()/2.3273),(int)(this.getHeight()/1.6516),(int)(this.getWidth()/2.3273),(int)(this.getHeight()/5.3895), null);
-        this.fireimg.next();
-
+        g.drawImage(fireimg, fireimg.getPosX(),fireimg.getPosY(),fireimg.getWidth(),fireimg.getHeight(), null);
+        fireimg.next();
         bs.show();
         g.dispose();
     }
@@ -55,11 +57,36 @@ public class Viewer extends Canvas {
         }
 
         Graphics g = bs.getDrawGraphics();
-        g.drawImage(this.backgroundimg, 0, 0, this.getWidth(), this.getHeight(), null);
+        g.drawImage(this.backgroundimg, 0, 0, getWidth(), getHeight(), null);
        
 
         
        
     }
-	
+
+
+    //Getters and setters
+    public BufferedImage getBackgroundimg() {
+        return backgroundimg;
+    }
+
+    public void setBackgroundimg(BufferedImage backgroundimg) {
+        this.backgroundimg = backgroundimg;
+    }
+
+    public int getFireX() {
+        return fireX;
+    }
+
+    public void setFireX(int fireX) {
+        this.fireX = fireX;
+    }
+
+    public int getFireY() {
+        return fireY;
+    }
+
+    public void setFireY(int fireY) {
+        this.fireY = fireY;
+    }
 }

@@ -1,52 +1,46 @@
 package SimulacionFuego;
-import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import static java.lang.Thread.sleep;
 
-import javax.swing.JFrame;
-import javax.swing.JToggleButton;
 
+public class FireController{
 
-public class FireController extends JFrame implements ComponentListener, ActionListener, ItemListener {
-
-  
-    private JToggleButton tbPlay;
-    private Viewer viewer;
-    private FireModel animation;
+    private DTOGeneralParameters dtoGeneralParameters;
+    private FireView fireviewer;
+    private FireModel fireModel;
 
 
 
     public static void main(String[] args) {
         FireController et = new FireController();
+        et.fireviewer.setFireController(et);
         et.playAnimation();
     }
 
 
    
     public FireController() {
-        this.initClass();
-        this.configureJFrame();
-        this.addUIComponents();
-        this.setVisible(true);
-        this.pack();
+        this.dtoGeneralParameters = new DTOGeneralParameters();
+        this.fireviewer = new FireView();
+        this.fireModel = new FireModel(dtoGeneralParameters);
+
+
     }
 
 
    
     public void playAnimation() {
         while (true) {
-            if (this.tbPlay.isSelected()) {
-                this.viewer.paintBackground();
-                this.viewer.paintForegroundImage();
+            if(fireviewer.getUpdate()){
+                setDtoGeneralParameters(this.fireviewer.getDtoGeneralParameters());
+                this.fireModel = new FireModel(dtoGeneralParameters);
+                this.fireviewer.setUpdate(false);
+            }
+            if (this.fireviewer.getControPanel().animationControls.playPause.isSelected()) {
+                this.fireviewer.getViewer().paintBackground();
+                this.fireviewer.getViewer().paintForegroundImage(this.fireModel);
+
+
             }
             try {
                 sleep(50);
@@ -56,105 +50,27 @@ public class FireController extends JFrame implements ComponentListener, ActionL
         }
     }
 
-
-   
-    private void addButtonsToPane(Container panel) {
-        GridBagConstraints c = new GridBagConstraints();
-
-        c.anchor = GridBagConstraints.NORTH;
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.weightx = 0;
-        c.weighty = 0;
-        c.gridheight = 2;
-        c.gridwidth = 2;
-        c.gridy =1;
-        this.tbPlay = new JToggleButton("Play/Stop");
-        this.tbPlay.addActionListener(this);
-        panel.add(this.tbPlay, c);
+    public FireView getFireviewer() {
+        return fireviewer;
     }
 
-
-    public void addUIComponents() {
-        Container panel;
-        panel = this.getContentPane();
-        this.addViewerToPane(panel);
-        this.addButtonsToPane(panel);
+    public void setFireviewer(FireView fireviewer) {
+        this.fireviewer = fireviewer;
     }
 
-
-    private void addViewerToPane(Container panel) {
-        GridBagConstraints c = new GridBagConstraints();
-
-        c.anchor = GridBagConstraints.SOUTH;
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        c.gridy = 0;
-        c.weightx = 1;
-        c.weighty = 1;
-        c.gridheight = 1;
-        c.gridwidth = 1;
-
-        this.viewer = new Viewer(512, 512, this.animation);
-        panel.add(this.viewer, c);
+    public FireModel getFireModel() {
+        return fireModel;
     }
 
-    private void initClass() {
-        this.animation = new FireModel(255, 95);
+    public void setFireModel(FireModel fireModel) {
+        this.fireModel = fireModel;
     }
 
-    private void configureJFrame() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new GridBagLayout());
-        this.addComponentListener(this);
+    public DTOGeneralParameters getDtoGeneralParameters() {
+        return dtoGeneralParameters;
     }
 
-
-
-
-    
-    @Override
-    public void itemStateChanged(ItemEvent itemEvent) {
-        int estado = itemEvent.getStateChange();
-        if (estado == ItemEvent.SELECTED) {
-        } else {
-        }
+    public void setDtoGeneralParameters(DTOGeneralParameters dtoGeneralParameters) {
+        this.dtoGeneralParameters = dtoGeneralParameters;
     }
-
-
-    @Override
-    public void componentHidden(ComponentEvent ce) {
-       
-    }
-
-
-    @Override
-    public void componentMoved(ComponentEvent ce) {
-        
-    }
-
-
-    @Override
-    public void componentResized(ComponentEvent ce) {
-       
-    }
-
-
-    @Override
-    public void componentShown(ComponentEvent ce) {
-       
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String str = e.getActionCommand();
-        switch (str) {
-            case "Play/Stop":
-                this.viewer.paintBackground();
-                break;
-            default:
-                
-        }
-    }
-
 }

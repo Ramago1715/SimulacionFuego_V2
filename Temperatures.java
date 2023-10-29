@@ -9,12 +9,12 @@ public class Temperatures {
 	private int porcentajefrio;
 	private int porcenajecaliente;
 	public Temperatures() {
-		
+
 	}
-	public Temperatures(int heigth ,int width ,int probabilidadfrio,int probabilidadcaliente) {
+	public Temperatures(int width,int heigth,int probabilidadfrio,int probabilidadcaliente) {
 		setHeigth(heigth);
 		setWidth(width);
-		setMatriztemperatures(heigth,width);
+		setMatriztemperatures(this.heigth,this.width);
 		setPorcentajefrio(probabilidadfrio);
 		setPorcentajecaliente(probabilidadcaliente);
 		
@@ -86,6 +86,14 @@ public class Temperatures {
 			for(int y = 0; y<=width-1;y++) {
 				this.matriztemperatures[x][y] = 0;
 				
+			}
+		}
+	}
+
+	public void initblack(){
+		for(int x = 0; x<=heigth-1;x++) {
+			for(int y = 0; y<=width-1;y++) {
+				this.matriztemperatures[x][y] = 0;
 			}
 		}
 	}
