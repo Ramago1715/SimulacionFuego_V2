@@ -40,6 +40,7 @@ public class FireController{
                 this.fireviewer.getViewer().paintBackground();
                 this.fireviewer.getViewer().paintForegroundImage(this.fireModel);
 
+
             }
             try {
                 sleep(50);

@@ -11,10 +11,10 @@ public class FireModel extends BufferedImage {
 	
 	public FireModel(DTOGeneralParameters dtoGeneralParameters) {
 		super(dtoGeneralParameters.getFireWidth(),dtoGeneralParameters.getFireHeigth(),BufferedImage.TYPE_INT_ARGB);
-		setWidth(dtoGeneralParameters.getFireWidth());
-		setHeigth(dtoGeneralParameters.getFireHeigth());
-		setPosX(dtoGeneralParameters.getFireXPosition());
-		setPosY(dtoGeneralParameters.getFireYPosition());
+		this.setWidth(dtoGeneralParameters.getFireWidth());
+		this.setHeigth(dtoGeneralParameters.getFireHeigth());
+		this.setPosX(dtoGeneralParameters.getFireXPosition());
+		this.setPosY(dtoGeneralParameters.getFireYPosition());
 		this.temperaturas = new Temperatures(this.width,this.heigth,15,10);
 		this.palette = new ColorPalette();
 		palette.addcolortotarget(55,new Color(0,0,0,100));
@@ -33,22 +33,22 @@ public class FireModel extends BufferedImage {
 	
 	public void createFireImage() {
 		
-		for(posX = 0;posX<=this.getTemperaturas().getHeigth() -2;posX++) {
-			for(posY = 0; posY<=this.getTemperaturas().getWidth() -1;posY++) {
-				int temp = this.temperaturas.getTemp(posX, posY);
+		for(int x = 0;x<=this.getTemperaturas().getHeigth() -2;x++) {
+			for(int y = 0; y<=this.getTemperaturas().getWidth() -1;y++) {
+				int temp = this.temperaturas.getTemp(x, y);
 				int ARGB = this.palette.palette.get(temp).getARGB();
-				this.setRGB(posY, posX,ARGB);
+				this.setRGB(y, x,ARGB);
 				
 			}
 		}
 		
 	}
 	public void deletecolors(){
-		for(posX = 0;posX<this.heigth;posX++) {
-			for(posY = 0; posY<this.width;posY++) {
-				int temp = this.temperaturas.getTemp(posX, posY);
+		for(int x = 0;x<this.heigth;x++) {
+			for(int y = 0; y<this.width;y++) {
+				int temp = this.temperaturas.getTemp(x, y);
 				int ARGB = this.palette.palette.get(temp).getARGB();
-				this.setRGB(posY, posX,ARGB);
+				this.setRGB(y, x,ARGB);
 
 			}
 		}

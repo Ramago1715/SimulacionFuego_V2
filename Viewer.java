@@ -44,10 +44,7 @@ public class Viewer extends Canvas {
 
         Graphics g = bs.getDrawGraphics();
         g.drawImage(fireimg, fireimg.getPosX(),fireimg.getPosY(),fireimg.getWidth(),fireimg.getHeight(), null);
-        System.out.println(fireimg.getPosX() +"      "+fireimg.getPosY() + "       " + fireimg.getWidth() + "      " + fireimg.getHeigth());
-
         fireimg.next();
-
         bs.show();
         g.dispose();
     }
@@ -60,7 +57,7 @@ public class Viewer extends Canvas {
         }
 
         Graphics g = bs.getDrawGraphics();
-        g.drawImage(this.backgroundimg, 0, 0, this.getWidth(), this.getHeight(), null);
+        g.drawImage(this.backgroundimg, 0, 0, getWidth(), getHeight(), null);
        
 
         

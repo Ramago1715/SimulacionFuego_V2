@@ -12,9 +12,7 @@ public class GeneralConfiguration extends JPanel {
     JFormattedTextField fireYPosition;
     JFormattedTextField calcFramesPerSecond;
     JFormattedTextField showFramesPerSecond;
-    private String resolucion;
-    private String nombrebackground;
-    private String carpetapadre;
+
 
     public GeneralConfiguration(){
         NumberFormatter formatter = new NumberFormatter();

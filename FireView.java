@@ -26,15 +26,15 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.setVisible(true);
         this.viewer.setVisible(true);
         this.dtoGeneralParameters = new DTOGeneralParameters();
-        nameBack = new JTextField();
-        carpetapadre = new JTextField();
-        resolucion = new JTextField();
+        this.nameBack = new JTextField("ChimeneaDefault");
+        this.carpetapadre = new JTextField("SimulacionFuegoV2");
+        this.resolucion = new JTextField("512x512");
         this.configureJFrame();
         this.addUIComponents();
         this.pack();
 
     }
-/**G**/
+
 
     public void addUIComponents() {
         Container panel;
@@ -58,14 +58,11 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.animationControls.getChangebackgroundimage().addActionListener(this);
         panel.add(this.controPanel, c);
         c.gridy = 1;
-        nameBack = new JTextField(this.dtoGeneralParameters.getNombrebackground());
-        this.add(nameBack,c);
+        this.add(this.nameBack,c);
         c.gridy = 2;
-        carpetapadre = new JTextField(this.dtoGeneralParameters.getCarpetapadre());
-        this.add(carpetapadre,c);
-        resolucion = new JTextField(this.dtoGeneralParameters.getResolucion());
+        this.add(this.carpetapadre,c);
         c.gridy = 3;
-        this.add(resolucion,c);
+        this.add(this.resolucion,c);
 
 
     }
@@ -117,6 +114,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                 this.fireController.getFireModel().deletecolors();
                 this.viewer.paintBackground();
                 this.viewer.paintForegroundImage(this.getFireController().getFireModel());
+                break;
             case "Cambiar Fondo":
                 JFileChooser fileChooser = new JFileChooser();
                 FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Imagenes", "jpg", "jpeg", "png", "gif", "bmp");
@@ -132,7 +130,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                     try {
                         BufferedImage backgroundImage = ImageIO.read(backgroundFile);
                         this.viewer.setBackgroundimg(backgroundImage);
-                        this.controPanel.animationControls.stopButton.doClick();
+
                         String resolucion = backgroundImage.getHeight() + "x" + backgroundImage.getWidth();
                         this.resolucion.setText(resolucion);
 
@@ -143,6 +141,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                 }
                 break;
             default:
+                break;
         }
     }
 
