@@ -18,7 +18,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
     private JTextField nameBack;
     private JTextField carpetapadre;
     private JTextField resolucion;
-    private JButton popupMenu;
+
 
     public  FireView(){
         this.update = false;
@@ -30,7 +30,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.nameBack = new JTextField("ChimeneaDefault");
         this.carpetapadre = new JTextField("SimulacionFuegoV2");
         this.resolucion = new JTextField("512x512");
-        this.popupMenu = new JButton("Pop up");
+
 
         this.configureJFrame();
         this.addUIComponents();
@@ -59,7 +59,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.getAnimationControls().getApply().addActionListener(this);
         this.controPanel.getAnimationControls().getStopButton().addActionListener(this);
         this.controPanel.getAnimationControls().getChangebackgroundimage().addActionListener(this);
-        this.popupMenu.addActionListener(this);
+
 
         panel.add(this.controPanel, c);
         c.gridy = 1;
@@ -68,8 +68,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.add(this.carpetapadre,c);
         c.gridy = 3;
         this.add(this.resolucion,c);
-        c.gridy = 4;
-        this.add(popupMenu,c);
+
 
 
     }
@@ -97,6 +96,8 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.addComponentListener(this);
         setVisible(true);
         this.setResizable(false);
+        setTitle("Fire");
+        setIconImage(new ImageIcon(getClass().getResource("fuego.png")).getImage());
     }
 
 
@@ -148,20 +149,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
                 }
                 break;
-            case "Pop up":
-                GridBagConstraints c = new GridBagConstraints();
-                c.anchor = GridBagConstraints.NORTHWEST;
-                c.fill = GridBagConstraints.VERTICAL;
-                c.gridx = 1;
-                c.gridy = 3;
-                c.weightx = 0;
-                c.weighty = 5;
-                JPopupMenu popupMenu = new JPopupMenu();
-                this.controPanel.add(popupMenu,c);
-                popupMenu.add(new JLabel("prueba"));
-                popupMenu.setVisible(true);
 
-                break;
             default:
                 break;
         }
