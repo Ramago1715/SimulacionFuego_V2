@@ -15,9 +15,10 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
     private FireController fireController;
     private DTOGeneralParameters dtoGeneralParameters;
     private Boolean update;
-    JTextField nameBack;
-    JTextField carpetapadre;
-    JTextField resolucion;
+    private JTextField nameBack;
+    private JTextField carpetapadre;
+    private JTextField resolucion;
+    private JButton popupMenu;
 
     public  FireView(){
         this.update = false;
@@ -29,6 +30,8 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.nameBack = new JTextField("ChimeneaDefault");
         this.carpetapadre = new JTextField("SimulacionFuegoV2");
         this.resolucion = new JTextField("512x512");
+        this.popupMenu = new JButton("Pop up");
+
         this.configureJFrame();
         this.addUIComponents();
         this.pack();
@@ -48,14 +51,16 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
         c.anchor = GridBagConstraints.NORTHWEST;
 
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy =0;
         c.weightx = 2;
         c.weighty = 1;
-        this.controPanel.animationControls.getPlayPause().addActionListener(this);
-        this.controPanel.animationControls.getApply().addActionListener(this);
-        this.controPanel.animationControls.getStopButton().addActionListener(this);
-        this.controPanel.animationControls.getChangebackgroundimage().addActionListener(this);
+        this.controPanel.getAnimationControls().getPlayPause().addActionListener(this);
+        this.controPanel.getAnimationControls().getApply().addActionListener(this);
+        this.controPanel.getAnimationControls().getStopButton().addActionListener(this);
+        this.controPanel.getAnimationControls().getChangebackgroundimage().addActionListener(this);
+        this.popupMenu.addActionListener(this);
+
         panel.add(this.controPanel, c);
         c.gridy = 1;
         this.add(this.nameBack,c);
@@ -63,6 +68,8 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.add(this.carpetapadre,c);
         c.gridy = 3;
         this.add(this.resolucion,c);
+        c.gridy = 4;
+        this.add(popupMenu,c);
 
 
     }
@@ -72,7 +79,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
         c.anchor = GridBagConstraints.NORTH;
         c.fill = GridBagConstraints.BOTH;
-        c.gridx = 2;
+        c.gridx = 3;
         c.gridy = 0;
         c.weightx = 1;
         c.weighty = 1;
@@ -82,6 +89,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.carpetapadre.setColumns(10);
         this.nameBack.setColumns(10);
     }
+
 
     private void configureJFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,16 +108,16 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
                 break;
             case "Apply":
-                this.dtoGeneralParameters.setFireWidth(Integer.parseInt(this.controPanel.generalConfiguration.fireWidth.getText()));
-                this.dtoGeneralParameters.setFireHeigth(Integer.parseInt(this.controPanel.generalConfiguration.fireHeigth.getText()));
-                this.dtoGeneralParameters.setFireXPosition(Integer.parseInt(this.controPanel.generalConfiguration.fireXPosition.getText()));
-                this.dtoGeneralParameters.setFireYPosition(Integer.parseInt(this.controPanel.generalConfiguration.fireYPosition.getText()));
+                this.dtoGeneralParameters.setFireWidth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireWidth.getText()));
+                this.dtoGeneralParameters.setFireHeigth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireHeigth.getText()));
+                this.dtoGeneralParameters.setFireXPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireXPosition.getText()));
+                this.dtoGeneralParameters.setFireYPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireYPosition.getText()));
                 this.update = true;
-                this.controPanel.animationControls.stopButton.doClick();
+                this.controPanel.getAnimationControls().getStopButton().doClick();
 
                 break;
             case "Stop":
-                this.controPanel.animationControls.playPause.setSelected(false);
+                this.controPanel.getAnimationControls().getPlayPause().setSelected(false);
                 this.fireController.getFireModel().getTemperaturas().initblack();
                 this.fireController.getFireModel().deletecolors();
                 this.viewer.paintBackground();
@@ -139,6 +147,20 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                     }
 
                 }
+                break;
+            case "Pop up":
+                GridBagConstraints c = new GridBagConstraints();
+                c.anchor = GridBagConstraints.NORTHWEST;
+                c.fill = GridBagConstraints.VERTICAL;
+                c.gridx = 1;
+                c.gridy = 3;
+                c.weightx = 0;
+                c.weighty = 5;
+                JPopupMenu popupMenu = new JPopupMenu();
+                this.controPanel.add(popupMenu,c);
+                popupMenu.add(new JLabel("prueba"));
+                popupMenu.setVisible(true);
+
                 break;
             default:
                 break;

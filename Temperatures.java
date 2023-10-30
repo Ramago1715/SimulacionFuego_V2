@@ -3,7 +3,7 @@ package SimulacionFuego;
 import java.util.Arrays;
 
 public class Temperatures {
-	public int[][] matriztemperatures;
+	private int[][] matriztemperatures;
 	private int width;
 	private int heigth;
 	private int porcentajefrio;

@@ -36,7 +36,7 @@ public class FireController{
                 this.fireModel = new FireModel(dtoGeneralParameters);
                 this.fireviewer.setUpdate(false);
             }
-            if (this.fireviewer.getControPanel().animationControls.playPause.isSelected()) {
+            if (this.fireviewer.getControPanel().getAnimationControls().getPlayPause().isSelected()) {
                 this.fireviewer.getViewer().paintBackground();
                 this.fireviewer.getViewer().paintForegroundImage(this.fireModel);
 
