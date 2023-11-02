@@ -9,13 +9,13 @@ public class FireModel extends BufferedImage {
 	private int width,heigth;
 	private int posX,posY;
 	
-	public FireModel(DTOGeneralParameters dtoGeneralParameters) {
-		super(dtoGeneralParameters.getFireWidth(),dtoGeneralParameters.getFireHeigth(),BufferedImage.TYPE_INT_ARGB);
-		this.setWidth(dtoGeneralParameters.getFireWidth());
-		this.setHeigth(dtoGeneralParameters.getFireHeigth());
-		this.setPosX(dtoGeneralParameters.getFireXPosition());
-		this.setPosY(dtoGeneralParameters.getFireYPosition());
-		this.temperaturas = new Temperatures(this.width,this.heigth,15,10);
+	public FireModel(DTOController dtoController) {
+		super(dtoController.getDtoGeneralParameters().getFireWidth(), dtoController.getDtoGeneralParameters().getFireHeigth(),BufferedImage.TYPE_INT_ARGB);
+		this.setWidth(dtoController.getDtoGeneralParameters().getFireWidth());
+		this.setHeigth(dtoController.getDtoGeneralParameters().getFireHeigth());
+		this.setPosX(dtoController.getDtoGeneralParameters().getFireXPosition());
+		this.setPosY(dtoController.getDtoGeneralParameters().getFireYPosition());
+		this.temperaturas = new Temperatures(this.width,this.heigth,dtoController.getDtoTemperatureParameters());
 		this.palette = new ColorPalette();
 		palette.addcolortotarget(55,new Color(0,0,0,100));
 		palette.addcolortotarget(60,new Color(155,0,0,110));
@@ -32,17 +32,19 @@ public class FireModel extends BufferedImage {
 	
 	
 	public void createFireImage() {
-		
-		for(int x = 0;x<=this.getTemperaturas().getHeigth() -2;x++) {
-			for(int y = 0; y<=this.getTemperaturas().getWidth() -1;y++) {
+
+		for (int x = 0; x <= this.getTemperaturas().getHeigth() - 2; x++) {
+			for (int y = 0; y <= this.getTemperaturas().getWidth() - 1; y++) {
 				int temp = this.temperaturas.getTemp(x, y);
 				int ARGB = this.palette.palette.get(temp).getARGB();
-				this.setRGB(y, x,ARGB);
-				
+				this.setRGB(y, x, ARGB);
+
 			}
 		}
-		
 	}
+
+		
+
 	public void deletecolors(){
 		for(int x = 0;x<this.heigth;x++) {
 			for(int y = 0; y<this.width;y++) {

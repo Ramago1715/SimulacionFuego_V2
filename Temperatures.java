@@ -6,26 +6,30 @@ public class Temperatures {
 	private int[][] matriztemperatures;
 	private int width;
 	private int heigth;
-	private int porcentajefrio;
-	private int porcenajecaliente;
+	private double porcentajefrio;
+	private double porcenajecaliente;
+	private  DTOTemperatureParameters dtoTemperatureParameters;
 	public Temperatures() {
 
 	}
-	public Temperatures(int width,int heigth,int probabilidadfrio,int probabilidadcaliente) {
+	public Temperatures(int width,int heigth,DTOTemperatureParameters dtoTemperatureParameters) {
 		setHeigth(heigth);
 		setWidth(width);
+		setDtoTemperatureParameters(dtoTemperatureParameters);
 		setMatriztemperatures(this.heigth,this.width);
-		setPorcentajefrio(probabilidadfrio);
-		setPorcentajecaliente(probabilidadcaliente);
+		setPorcentajefrio(this.dtoTemperatureParameters.getNewCoolPixelsPercentage());
+		setPorcentajecaliente(this.dtoTemperatureParameters.getNewHotPixelsPercentage());
 		
 	}
 	
 	public void next() {
 		sparks();
 		cold();
-		calc();
-	
-		}
+		if (!this.dtoTemperatureParameters.isBottonUpTemps()){
+			calc();
+		}else {
+			calcUP();
+		}}
 	
 	public int getTemp(int x,int y) {
 		int temp = this.matriztemperatures[x][y];
@@ -61,8 +65,8 @@ public class Temperatures {
 					valorestemp += this.matriztemperatures[x+1][y-1]* 0.7D; 
 					valorestemp += this.matriztemperatures[x][y+1]* 1.2D; 
 					valorestemp += this.matriztemperatures[x][y-1]* 1.2D; 
-					valorestemp = (int) (valorestemp/5.98569-1.8D);
-					this.matriztemperatures[x][y] = valorestemp;
+					valorestemp = (int) (valorestemp/this.dtoTemperatureParameters.getCellsDivider() - this.dtoTemperatureParameters.getFixAtenuationFactor());
+					this.matriztemperatures[x][y] = valorestemp ;
 					
 					
 					if(valorestemp>255) {
@@ -75,6 +79,34 @@ public class Temperatures {
 				}
 			}
 		}
+
+	private void calcUP() {
+
+		for (int x = getHeigth() - 2; x >= 1; x--) {
+			for (int y = getWidth() - 2; y >= 1; y--) {
+				int valorestemp = 0;
+				valorestemp += this.matriztemperatures[x][y] * 1.5D;
+				valorestemp += this.matriztemperatures[x + 1][y] * 0.7D;
+				valorestemp += this.matriztemperatures[x + 1][y + 1] * 0.7D;
+				valorestemp += this.matriztemperatures[x + 1][y - 1] * 0.7D;
+				valorestemp += this.matriztemperatures[x][y + 1] * 1.2D;
+				valorestemp += this.matriztemperatures[x][y - 1] * 1.2D;
+				valorestemp = (int) (valorestemp / this.dtoTemperatureParameters.getCellsDivider() - this.dtoTemperatureParameters.getFixAtenuationFactor());
+
+				if (valorestemp > 255) {
+					this.matriztemperatures[x][y] = 255;
+				} else if (valorestemp < 0) {
+					this.matriztemperatures[x][y] = 0;
+				} else {
+					this.matriztemperatures[x][y] = valorestemp;
+				}
+			}
+		}
+
+
+	}
+
+
 	
 	
 	public int[][] getMatriztemperatures() {
@@ -97,7 +129,15 @@ public class Temperatures {
 			}
 		}
 	}
-	
+
+	public DTOTemperatureParameters getDtoTemperatureParameters() {
+		return dtoTemperatureParameters;
+	}
+
+	public void setDtoTemperatureParameters(DTOTemperatureParameters dtoTemperatureParameters) {
+		this.dtoTemperatureParameters = dtoTemperatureParameters;
+	}
+
 	public int getWidth() {
 		return width;
 	}
@@ -110,16 +150,16 @@ public class Temperatures {
 	public void setHeigth(int heigth) {
 		this.heigth = heigth;
 	}
-	public int getPorcentajefrio() {
+	public double getPorcentajefrio() {
 		return porcentajefrio;
 	}
-	public void setPorcentajefrio(int porcentajefrio) {
+	public void setPorcentajefrio(double porcentajefrio) {
 		this.porcentajefrio = porcentajefrio;
 	}
-	public int getPorcentajecaliente() {
+	public double getPorcentajecaliente() {
 		return porcenajecaliente;
 	}
-	public void setPorcentajecaliente(int porcenajecaliente) {
+	public void setPorcentajecaliente(double porcenajecaliente) {
 		this.porcenajecaliente = porcenajecaliente;
 	}
 	@Override

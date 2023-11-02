@@ -13,7 +13,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
     private Viewer viewer;
     private ControPanel controPanel;
     private FireController fireController;
-    private DTOGeneralParameters dtoGeneralParameters;
+    private DTOController dtoController;
     private Boolean update;
     private JTextField nameBack;
     private JTextField carpetapadre;
@@ -26,7 +26,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.viewer = new Viewer(512,512);
         this.controPanel.setVisible(true);
         this.viewer.setVisible(true);
-        this.dtoGeneralParameters = new DTOGeneralParameters();
+        this.dtoController = new DTOController();
         this.nameBack = new JTextField("ChimeneaDefault");
         this.carpetapadre = new JTextField("SimulacionFuegoV2");
         this.resolucion = new JTextField("512x512");
@@ -59,7 +59,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.getAnimationControls().getApply().addActionListener(this);
         this.controPanel.getAnimationControls().getStopButton().addActionListener(this);
         this.controPanel.getAnimationControls().getChangebackgroundimage().addActionListener(this);
-
+        this.controPanel.getTemperatureConfiguration().getBottonUpTemps().addActionListener(this);
 
         panel.add(this.controPanel, c);
         c.gridy = 1;
@@ -109,10 +109,11 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
                 break;
             case "Apply":
-                this.dtoGeneralParameters.setFireWidth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireWidth.getText()));
-                this.dtoGeneralParameters.setFireHeigth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireHeigth.getText()));
-                this.dtoGeneralParameters.setFireXPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireXPosition.getText()));
-                this.dtoGeneralParameters.setFireYPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireYPosition.getText()));
+                this.dtoController.getDtoGeneralParameters().setFireWidth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireWidth.getText()));
+                this.dtoController.getDtoGeneralParameters().setFireHeigth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireHeigth.getText()));
+                this.dtoController.getDtoGeneralParameters().setFireXPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireXPosition.getText()));
+                this.dtoController.getDtoGeneralParameters().setFireYPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireYPosition.getText()));
+
                 this.update = true;
                 this.controPanel.getAnimationControls().getStopButton().doClick();
 
@@ -207,12 +208,12 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.fireController = fireController;
     }
 
-    public DTOGeneralParameters getDtoGeneralParameters() {
-        return dtoGeneralParameters;
+    public DTOController getDtoController() {
+        return dtoController;
     }
 
-    public void setDtoGeneralParameters(DTOGeneralParameters dtoGeneralParameters) {
-        this.dtoGeneralParameters = dtoGeneralParameters;
+    public void setDtoController(DTOController dtoController) {
+        this.dtoController = dtoController;
     }
 
     public Boolean getUpdate() {

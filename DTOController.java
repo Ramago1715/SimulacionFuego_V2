@@ -7,7 +7,9 @@ public class DTOController {
     private DTOPaletteParameters dtoPaletteParameters;
 
     public DTOController(){
-
+        this.dtoGeneralParameters = new DTOGeneralParameters();
+        this.dtoTemperatureParameters = new DTOTemperatureParameters();
+        this.dtoPaletteParameters = new DTOPaletteParameters();
     }
 
     public DTOGeneralParameters getDtoGeneralParameters() {

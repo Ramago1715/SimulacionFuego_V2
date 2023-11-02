@@ -1,6 +1,10 @@
 package SimulacionFuego;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -85,6 +89,7 @@ public class GeneralConfiguration extends JPanel {
         this.fireWidth.setColumns(10);
         this.fireXPosition.setColumns(10);
         this.fireYPosition.setColumns(10);
+        this.setBorder(new CompoundBorder(new LineBorder(Color.WHITE),new EmptyBorder(15,0,15,0)));
      
     }
 
