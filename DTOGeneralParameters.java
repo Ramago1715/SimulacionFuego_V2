@@ -16,7 +16,7 @@ public class DTOGeneralParameters {
         this.fireWidth = 220;
         this.fireHeigth = 200;
         this.fireXPosition = 220;
-        this.fireYPosition = 240;
+        this.fireYPosition = 310;
 
     }
 

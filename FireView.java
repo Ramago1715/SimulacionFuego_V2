@@ -2,6 +2,8 @@ package SimulacionFuego;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
@@ -61,6 +63,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.getAnimationControls().getChangebackgroundimage().addActionListener(this);
         this.controPanel.getTemperatureConfiguration().getBottonUpTemps().addActionListener(this);
 
+
         panel.add(this.controPanel, c);
         c.gridy = 1;
         this.add(this.nameBack,c);
@@ -113,6 +116,13 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                 this.dtoController.getDtoGeneralParameters().setFireHeigth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireHeigth.getText()));
                 this.dtoController.getDtoGeneralParameters().setFireXPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireXPosition.getText()));
                 this.dtoController.getDtoGeneralParameters().setFireYPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireYPosition.getText()));
+                this.dtoController.getDtoTemperatureParameters().setBottonUpTemps(this.controPanel.getTemperatureConfiguration().getBottonUpTemps().isSelected());
+                this.dtoController.getDtoTemperatureParameters().setCellsDivider(Double.parseDouble(this.controPanel.getTemperatureConfiguration().getCellsDivider().getText()));
+                this.dtoController.getDtoTemperatureParameters().setFixAtenuationFactor(Double.parseDouble(this.controPanel.getTemperatureConfiguration().getFixAtenuationFactor().getText()));
+                this.dtoController.getDtoTemperatureParameters().setNewCoolPixelsPercentage(this.controPanel.getTemperatureConfiguration().getNewCoolPixelsPercentage().getValue());
+                this.dtoController.getDtoTemperatureParameters().setNewHotPixelsPercentage(this.controPanel.getTemperatureConfiguration().getNewHotPixelsPercentage().getValue());
+                actualizarJTable();
+
 
                 this.update = true;
                 this.controPanel.getAnimationControls().getStopButton().doClick();
@@ -158,7 +168,15 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
 
 
+private void actualizarJTable(){
+        for (int x = 0;x<= this.controPanel.getTemperatureConfiguration().getCellsPonderation().getRowCount()-1;x++){
+            for (int y = 0;y<=this.controPanel.getTemperatureConfiguration().getCellsPonderation().getColumnCount()-1;y++){
+              double valorcasilla = Double.parseDouble(this.controPanel.getTemperatureConfiguration().getCellsPonderation().getValueAt(x,y).toString());
+              this.getDtoController().getDtoTemperatureParameters().setCellsponderation(x,y,valorcasilla);
+            }
+        }
 
+}
     @Override
     public void componentResized(ComponentEvent e) {
 

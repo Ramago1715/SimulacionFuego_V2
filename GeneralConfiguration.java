@@ -85,10 +85,14 @@ public class GeneralConfiguration extends JPanel {
     private  void stylebuttons(){
 
 
-        this.fireHeigth.setColumns(10);
-        this.fireWidth.setColumns(10);
-        this.fireXPosition.setColumns(10);
-        this.fireYPosition.setColumns(10);
+        this.fireHeigth.setPreferredSize(new Dimension(115,20));
+        this.fireHeigth.setText("200");
+        this.fireWidth.setPreferredSize(new Dimension(115,20));
+        this.fireWidth.setText("220");
+        this.fireXPosition.setPreferredSize(new Dimension(115,20));
+        this.fireXPosition.setText("220");
+        this.fireYPosition.setPreferredSize(new Dimension(115,20));
+        this.fireYPosition.setText("310");
         this.setBorder(new CompoundBorder(new LineBorder(Color.WHITE),new EmptyBorder(15,0,15,0)));
      
     }

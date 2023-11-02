@@ -59,13 +59,14 @@ public class Temperatures {
 		for(int x = 1;x<=getHeigth()-2;x++) {
 			for(int y = 1; y<=getWidth()-2;y++) {
 				int valorestemp = 0;
-					valorestemp += this.matriztemperatures[x][y]* 1.5D ; 
-					valorestemp += this.matriztemperatures[x+1][y]* 0.7D; 
-					valorestemp += this.matriztemperatures[x+1][y+1]* 0.7D; 
-					valorestemp += this.matriztemperatures[x+1][y-1]* 0.7D; 
-					valorestemp += this.matriztemperatures[x][y+1]* 1.2D; 
-					valorestemp += this.matriztemperatures[x][y-1]* 1.2D; 
-					valorestemp = (int) (valorestemp/this.dtoTemperatureParameters.getCellsDivider() - this.dtoTemperatureParameters.getFixAtenuationFactor());
+					valorestemp += this.matriztemperatures[x][y]* this.dtoTemperatureParameters.getCellsponderationvalue(0,1) ;
+					valorestemp += this.matriztemperatures[x+1][y]* this.dtoTemperatureParameters.getCellsponderationvalue(1,1);
+					valorestemp += this.matriztemperatures[x+1][y+1]*this.dtoTemperatureParameters.getCellsponderationvalue(1,2);
+					valorestemp += this.matriztemperatures[x+1][y-1]*this.dtoTemperatureParameters.getCellsponderationvalue(1,0);
+					valorestemp += this.matriztemperatures[x][y+1]*this.dtoTemperatureParameters.getCellsponderationvalue(0,2);
+					valorestemp += this.matriztemperatures[x][y-1]*this.dtoTemperatureParameters.getCellsponderationvalue(0,0);
+					valorestemp = (int) (valorestemp/this.dtoTemperatureParameters.getCellsDivider());
+					valorestemp = (int) (valorestemp - this.dtoTemperatureParameters.getFixAtenuationFactor());
 					this.matriztemperatures[x][y] = valorestemp ;
 					
 					
@@ -85,14 +86,14 @@ public class Temperatures {
 		for (int x = getHeigth() - 2; x >= 1; x--) {
 			for (int y = getWidth() - 2; y >= 1; y--) {
 				int valorestemp = 0;
-				valorestemp += this.matriztemperatures[x][y] * 1.5D;
-				valorestemp += this.matriztemperatures[x + 1][y] * 0.7D;
-				valorestemp += this.matriztemperatures[x + 1][y + 1] * 0.7D;
-				valorestemp += this.matriztemperatures[x + 1][y - 1] * 0.7D;
-				valorestemp += this.matriztemperatures[x][y + 1] * 1.2D;
-				valorestemp += this.matriztemperatures[x][y - 1] * 1.2D;
-				valorestemp = (int) (valorestemp / this.dtoTemperatureParameters.getCellsDivider() - this.dtoTemperatureParameters.getFixAtenuationFactor());
-
+				valorestemp += this.matriztemperatures[x][y]* this.dtoTemperatureParameters.getCellsponderationvalue(0,1) ;
+				valorestemp += this.matriztemperatures[x+1][y]* this.dtoTemperatureParameters.getCellsponderationvalue(1,1);
+				valorestemp += this.matriztemperatures[x+1][y+1]*this.dtoTemperatureParameters.getCellsponderationvalue(1,2);
+				valorestemp += this.matriztemperatures[x+1][y-1]*this.dtoTemperatureParameters.getCellsponderationvalue(1,0);
+				valorestemp += this.matriztemperatures[x][y+1]*this.dtoTemperatureParameters.getCellsponderationvalue(0,2);
+				valorestemp += this.matriztemperatures[x][y-1]*this.dtoTemperatureParameters.getCellsponderationvalue(0,0);
+				valorestemp = (int) (valorestemp/this.dtoTemperatureParameters.getCellsDivider());
+				valorestemp = (int) (valorestemp - this.dtoTemperatureParameters.getFixAtenuationFactor());
 				if (valorestemp > 255) {
 					this.matriztemperatures[x][y] = 255;
 				} else if (valorestemp < 0) {
