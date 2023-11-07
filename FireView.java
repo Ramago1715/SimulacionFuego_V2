@@ -91,9 +91,6 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         createtable();
 
 
-
-
-
     }
 
     private void addViewerToPane(Container panel) {
