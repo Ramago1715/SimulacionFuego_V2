@@ -32,8 +32,12 @@ public class ControPanel extends JPanel{
         this.add(animationControls,c);
         c.gridy = 2;
         this.add(generalConfiguration,c);
-        c.gridy = 3;
+        c.gridy = 1;
+        c.gridx = 2;
         this.add(temperatureConfiguration,c);
+        c.gridy = 2;
+        c.gridx = 2;
+        this.add(paletteConfiguration,c);
 
     }
     private  void styleControls(){

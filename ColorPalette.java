@@ -3,18 +3,14 @@ import java.util.ArrayList;
 import java.awt.Color;
 public class ColorPalette {
 	ArrayList<Colortargets> palette = new ArrayList<Colortargets>();
-	 ArrayList<Colortargets> target = new ArrayList<Colortargets>();
+ 	ArrayList<Colortargets> target = new ArrayList<Colortargets>();
 	 
 	 
 	 public ColorPalette() {
-		 this.target.add(new Colortargets(255,new Color(255,255,255,255)));
-		 this.target.add(new Colortargets(0,new Color(0,0,0,0)));
 		 
 	 }
-	 public void addcolortotarget(int temperature,Color color) {
-		 this.target.add(new Colortargets(temperature,color));
-
-		 
+	 public void addcolortotarget(Colortargets colortargets){
+		 this.target.add(colortargets);
 	 }
 	 
 	 private void sortpalette() {

@@ -8,6 +8,7 @@ public class FireModel extends BufferedImage {
 	private ColorPalette palette;
 	private int width,heigth;
 	private int posX,posY;
+	private DTOPaletteParameters dtoPaletteParameters;
 	
 	public FireModel(DTOController dtoController) {
 		super(dtoController.getDtoGeneralParameters().getFireWidth(), dtoController.getDtoGeneralParameters().getFireHeigth(),BufferedImage.TYPE_INT_ARGB);
@@ -15,13 +16,10 @@ public class FireModel extends BufferedImage {
 		this.setHeigth(dtoController.getDtoGeneralParameters().getFireHeigth());
 		this.setPosX(dtoController.getDtoGeneralParameters().getFireXPosition());
 		this.setPosY(dtoController.getDtoGeneralParameters().getFireYPosition());
+		this.dtoPaletteParameters = dtoController.getDtoPaletteParameters();
 		this.temperaturas = new Temperatures(this.width,this.heigth,dtoController.getDtoTemperatureParameters());
 		this.palette = new ColorPalette();
-		palette.addcolortotarget(55,new Color(0,0,0,100));
-		palette.addcolortotarget(60,new Color(155,0,0,110));
-		palette.addcolortotarget(72,new Color(200,100,0,180));
-		palette.addcolortotarget(112,new Color(235,235,40,250));
-		palette.addcolortotarget(130,new Color(255,255,200,255));
+		settargetstopalette();
 		palette.calc();
 
 	}
@@ -29,7 +27,12 @@ public class FireModel extends BufferedImage {
 		createFireImage();
 		temperaturas.next();
 	}
-	
+
+	public void settargetstopalette(){
+		for(int i = 0;i<=this.dtoPaletteParameters.getColortargets().size()-1;i++){
+			palette.addcolortotarget(this.dtoPaletteParameters.getColortargets().get(i));
+		}
+	}
 	
 	public void createFireImage() {
 

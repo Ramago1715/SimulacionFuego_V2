@@ -32,8 +32,6 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.nameBack = new JTextField("ChimeneaDefault");
         this.carpetapadre = new JTextField("SimulacionFuegoV2");
         this.resolucion = new JTextField("512x512");
-
-
         this.configureJFrame();
         this.addUIComponents();
         this.pack();
@@ -53,7 +51,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
         c.anchor = GridBagConstraints.NORTHWEST;
 
-        c.gridx = 2;
+        c.gridx = 0;
         c.gridy =0;
         c.weightx = 2;
         c.weighty = 1;
@@ -62,8 +60,25 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.getAnimationControls().getStopButton().addActionListener(this);
         this.controPanel.getAnimationControls().getChangebackgroundimage().addActionListener(this);
         this.controPanel.getTemperatureConfiguration().getBottonUpTemps().addActionListener(this);
+        this.controPanel.getPaletteConfiguration().getPalettebutton().addActionListener(this);
+        JFormattedTextField colorlistener = this.controPanel.getPaletteConfiguration().getARGBtarget();
 
+        colorlistener.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    Color selectedColor = JColorChooser.showDialog(null, "Seleccione un color", Color.BLACK);
+                    if (selectedColor != null) {
+                        colorlistener.setBackground(selectedColor);
+                        colorlistener.setForeground(selectedColor);
+                        colorlistener.setValue(selectedColor);
 
+                    }
+                }
+            }
+        });
+
+        remaketargetstable();
         panel.add(this.controPanel, c);
         c.gridy = 1;
         this.add(this.nameBack,c);
@@ -74,6 +89,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
 
 
+
     }
 
     private void addViewerToPane(Container panel) {
@@ -81,7 +97,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
         c.anchor = GridBagConstraints.NORTH;
         c.fill = GridBagConstraints.BOTH;
-        c.gridx = 3;
+        c.gridx = 1;
         c.gridy = 0;
         c.weightx = 1;
         c.weighty = 1;
@@ -121,6 +137,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                 this.dtoController.getDtoTemperatureParameters().setFixAtenuationFactor(Double.parseDouble(this.controPanel.getTemperatureConfiguration().getFixAtenuationFactor().getText()));
                 this.dtoController.getDtoTemperatureParameters().setNewCoolPixelsPercentage(this.controPanel.getTemperatureConfiguration().getNewCoolPixelsPercentage().getValue());
                 this.dtoController.getDtoTemperatureParameters().setNewHotPixelsPercentage(this.controPanel.getTemperatureConfiguration().getNewHotPixelsPercentage().getValue());
+
                 actualizarJTable();
 
 
@@ -160,14 +177,32 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
                 }
                 break;
+            case "ADD":
+                int temperature = Integer.parseInt(this.controPanel.getPaletteConfiguration().getTemperaturetarget().getValue().toString());
+                Color color = (Color) this.controPanel.getPaletteConfiguration().getARGBtarget().getValue();
+                dtoController.getDtoPaletteParameters().addtarget(temperature,color);
+                remaketargetstable();
 
+
+                break;
             default:
                 break;
         }
     }
 
 
+private void remaketargetstable(){
+    this.controPanel.getPaletteConfiguration().remove(this.controPanel.getPaletteConfiguration().getPalettetargets());
+    this.controPanel.getPaletteConfiguration().setPalettetargets(new JTable(this.dtoController.getDtoPaletteParameters().getColortargets().size(),2));
+    for(int x =0; x<=this.dtoController.getDtoPaletteParameters().getColortargets().size()-1;x++){
+        this.controPanel.getPaletteConfiguration().getPalettetargets().setValueAt(this.dtoController.getDtoPaletteParameters().getColortargets().get(x).temperature,x,0);
+        this.controPanel.getPaletteConfiguration().getPalettetargets().setValueAt(this.dtoController.getDtoPaletteParameters().getColortargets().get(x).color,x,1);
 
+    }
+    this.controPanel.getPaletteConfiguration().add(this.controPanel.getPaletteConfiguration().getPalettetargets());
+    this.controPanel.getPaletteConfiguration().getPalettetargets().setMinimumSize(new Dimension(100,50));
+    this.controPanel.getPaletteConfiguration().getPalettetargets().setAutoscrolls(true);
+}
 private void actualizarJTable(){
         for (int x = 0;x<= this.controPanel.getTemperatureConfiguration().getCellsPonderation().getRowCount()-1;x++){
             for (int y = 0;y<=this.controPanel.getTemperatureConfiguration().getCellsPonderation().getColumnCount()-1;y++){
