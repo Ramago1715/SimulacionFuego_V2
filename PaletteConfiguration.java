@@ -42,12 +42,10 @@ public class PaletteConfiguration extends JPanel{
        this.add(this.palettetargets,c);
        c.gridy = 1;
        c.gridx = 0;
-       c.weightx = 1;
        this.add(this.temperaturetarget,c);
-       c.gridx = 1;
-
-       this.add(this.ARGBtarget,c);
        c.gridy = 2;
+       this.add(this.ARGBtarget,c);
+       c.gridy = 3;
        c.gridx = 0;
        this.add(this.palettebutton,c);
    }

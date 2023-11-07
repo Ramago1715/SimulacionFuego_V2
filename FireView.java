@@ -70,14 +70,13 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                     Color selectedColor = JColorChooser.showDialog(null, "Seleccione un color", Color.BLACK);
                     if (selectedColor != null) {
                         colorlistener.setBackground(selectedColor);
-                        colorlistener.setForeground(selectedColor);
+                        colorlistener.setForeground(new Color(255,255,255,0));
                         colorlistener.setValue(selectedColor);
 
                     }
                 }
             }
         });
-
         remaketargetstable();
         panel.add(this.controPanel, c);
         c.gridy = 1;
@@ -86,6 +85,9 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.add(this.carpetapadre,c);
         c.gridy = 3;
         this.add(this.resolucion,c);
+        c.gridx=3;
+        c.gridy = 0;
+        this.add(this.controPanel.getPaletteConfiguration(),c);
 
 
 
