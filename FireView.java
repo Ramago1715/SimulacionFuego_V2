@@ -88,7 +88,8 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         c.gridx=3;
         c.gridy = 0;
         this.add(this.controPanel.getPaletteConfiguration(),c);
-        remaketargetstable();
+        createtable();
+
 
 
 
@@ -184,9 +185,8 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                 int temperature = Integer.parseInt(this.controPanel.getPaletteConfiguration().getTemperaturetarget().getValue().toString());
                 Color color = (Color) this.controPanel.getPaletteConfiguration().getARGBtarget().getValue();
                 dtoController.getDtoPaletteParameters().addtarget(temperature,color);
-                remaketargetstable();
-
-
+                this.controPanel.getPaletteConfiguration().getDefaultTableModel().addRow(new Object[]{(Integer)temperature,(Color)color
+                });
                 break;
             default:
                 break;
@@ -194,15 +194,15 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
     }
 
 
-private void remaketargetstable(){
-    this.controPanel.getPaletteConfiguration().remove(this.controPanel.getPaletteConfiguration().getPalettetargets());
-    this.controPanel.getPaletteConfiguration().setPalettetargets(new JTable(this.dtoController.getDtoPaletteParameters().getColortargets().size(),2));
+private void createtable(){
     for(int x =0; x<=this.dtoController.getDtoPaletteParameters().getColortargets().size()-1;x++){
-        this.controPanel.getPaletteConfiguration().getPalettetargets().setValueAt(this.dtoController.getDtoPaletteParameters().getColortargets().get(x).temperature,x,0);
-        this.controPanel.getPaletteConfiguration().getPalettetargets().setValueAt(this.dtoController.getDtoPaletteParameters().getColortargets().get(x).color,x,1);
+        this.controPanel.getPaletteConfiguration().getDefaultTableModel().addRow(new Object[]{
+            (Integer)this.dtoController.getDtoPaletteParameters().getColortargets().get(x).getTemperature(),(Color)this.dtoController.getDtoPaletteParameters().getColortargets().get(x).color
+        });
 
     }
-    this.controPanel.getPaletteConfiguration().add(this.controPanel.getPaletteConfiguration().getPalettetargets());
+
+
 }
 private void actualizarJTable(){
         for (int x = 0;x<= this.controPanel.getTemperatureConfiguration().getCellsPonderation().getRowCount()-1;x++){
