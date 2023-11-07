@@ -39,7 +39,6 @@ public class ControPanel extends JPanel{
     }
     private  void styleControls(){
     animationControls.setFont(new Font("Italic", Font.ITALIC,10));
-    this.getPaletteConfiguration().setPreferredSize(new Dimension(150,200));
 
     }
 

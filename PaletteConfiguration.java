@@ -31,8 +31,7 @@ public class PaletteConfiguration extends JPanel{
        this.temperaturetarget.setText("Temp");
        this.ARGBtarget.setPreferredSize(new Dimension(35,15));
        this.ARGBtarget.setText("Color");;
-       this.setPreferredSize(new Dimension(122,55));
-       this.setBorder(new CompoundBorder(new LineBorder(Color.WHITE),new EmptyBorder(15,0,15,0)));
+       this.setPreferredSize(new Dimension(200,200));
    }
    public void addelementstopanel(){
        GridBagConstraints c = new GridBagConstraints();

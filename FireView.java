@@ -77,7 +77,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                 }
             }
         });
-        remaketargetstable();
+
         panel.add(this.controPanel, c);
         c.gridy = 1;
         this.add(this.nameBack,c);
@@ -88,6 +88,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         c.gridx=3;
         c.gridy = 0;
         this.add(this.controPanel.getPaletteConfiguration(),c);
+        remaketargetstable();
 
 
 
@@ -202,8 +203,6 @@ private void remaketargetstable(){
 
     }
     this.controPanel.getPaletteConfiguration().add(this.controPanel.getPaletteConfiguration().getPalettetargets());
-    this.controPanel.getPaletteConfiguration().getPalettetargets().setMinimumSize(new Dimension(100,50));
-    this.controPanel.getPaletteConfiguration().getPalettetargets().setAutoscrolls(true);
 }
 private void actualizarJTable(){
         for (int x = 0;x<= this.controPanel.getTemperatureConfiguration().getCellsPonderation().getRowCount()-1;x++){
