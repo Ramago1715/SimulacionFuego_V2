@@ -31,7 +31,7 @@ public class Viewer extends Canvas {
 
 	private void loadBackground() {
 		try {
-            this.backgroundimg = ImageIO.read(new File("bg.jpg"));
+            this.backgroundimg = ImageIO.read(new File("SimulacionFuego_V2-Trans-MVC/bg.jpg"));
         } catch (IOException e) {
         }	
 	}

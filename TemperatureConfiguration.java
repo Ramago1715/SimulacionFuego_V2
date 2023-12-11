@@ -87,7 +87,7 @@ public class TemperatureConfiguration extends JPanel {
         Border compound = new CompoundBorder(new LineBorder(Color.white),new EmptyBorder(50,2,50,2));
         this.cellsDivider.setColumns(10);
         this.cellsDivider.setText("5.98569");
-        this.fixAtenuationFactor.setText("1.8");
+        this.fixAtenuationFactor.setText("0.5");
         this.fixAtenuationFactor.setColumns(10);
 
         getBottonUpTemps().setBorder(compound);

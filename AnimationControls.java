@@ -13,6 +13,9 @@ public class AnimationControls extends JPanel {
     private JButton stopButton;
 
     private JButton changebackgroundimage;
+    private JTextField nameBack;
+    private JTextField carpetapadre;
+    private JTextField resolucion;
 
     public AnimationControls(){
         this.setLayout(new GridBagLayout());
@@ -20,6 +23,9 @@ public class AnimationControls extends JPanel {
         setApply(new JButton("Apply"));
         setStopButton(new JButton("Stop"));
         setChangebackgroundimage(new JButton("Cambiar Fondo"));
+        this.nameBack = new JTextField("ChimeneaDefault");
+        this.carpetapadre = new JTextField("SimulacionFuegoV2");
+        this.resolucion = new JTextField("512x512");
         stylebuttons();
         addbuttonstopanel();
 
@@ -39,6 +45,12 @@ public class AnimationControls extends JPanel {
         this.add(getApply(),c);
         c.gridy = 4;
         this.add(getChangebackgroundimage(),c);
+        c.gridy = 5;
+        this.add(getNameBack(),c);
+        c.gridy++;
+        this.add(getCarpetapadre(),c);
+        c.gridy++;
+        this.add(getResolucion(),c);
 
     }
 
@@ -63,6 +75,9 @@ public class AnimationControls extends JPanel {
         getChangebackgroundimage().setPreferredSize(new Dimension(115,35));
         getChangebackgroundimage().setForeground(Color.white);
         getChangebackgroundimage().setBackground(new Color(118,182,188));
+        this.resolucion.setColumns(10);
+        this.carpetapadre.setColumns(10);
+        this.nameBack.setColumns(10);
 
     }
 
@@ -101,5 +116,29 @@ public class AnimationControls extends JPanel {
 
     public void setChangebackgroundimage(JButton changebackgroundimage) {
         this.changebackgroundimage = changebackgroundimage;
+    }
+
+    public JTextField getNameBack() {
+        return nameBack;
+    }
+
+    public void setNameBack(JTextField nameBack) {
+        this.nameBack = nameBack;
+    }
+
+    public JTextField getCarpetapadre() {
+        return carpetapadre;
+    }
+
+    public void setCarpetapadre(JTextField carpetapadre) {
+        this.carpetapadre = carpetapadre;
+    }
+
+    public JTextField getResolucion() {
+        return resolucion;
+    }
+
+    public void setResolucion(JTextField resolucion) {
+        this.resolucion = resolucion;
     }
 }

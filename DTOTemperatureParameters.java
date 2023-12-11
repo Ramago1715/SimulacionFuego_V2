@@ -15,7 +15,7 @@ public class DTOTemperatureParameters {
         this.newCoolPixelsPercentage= 15;
         this.newHotPixelsPercentage = 10;
         this.cellsDivider = 5.98569;
-        this.fixAtenuationFactor =1.8;
+        this.fixAtenuationFactor =0.5;
         this.bottonUpTemps = false;
         this.cellsponderation = new double[2][3];
         valoresdefaulttable();

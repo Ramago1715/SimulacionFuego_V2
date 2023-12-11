@@ -86,13 +86,13 @@ public class GeneralConfiguration extends JPanel {
 
 
         this.fireHeigth.setPreferredSize(new Dimension(115,20));
-        this.fireHeigth.setText("200");
+        this.fireHeigth.setText("220");
         this.fireWidth.setPreferredSize(new Dimension(115,20));
-        this.fireWidth.setText("220");
+        this.fireWidth.setText("210");
         this.fireXPosition.setPreferredSize(new Dimension(115,20));
         this.fireXPosition.setText("220");
         this.fireYPosition.setPreferredSize(new Dimension(115,20));
-        this.fireYPosition.setText("310");
+        this.fireYPosition.setText("350");
         this.setBorder(new CompoundBorder(new LineBorder(Color.WHITE),new EmptyBorder(15,0,15,0)));
      
     }

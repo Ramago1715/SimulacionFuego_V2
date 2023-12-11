@@ -17,9 +17,6 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
     private FireController fireController;
     private DTOController dtoController;
     private Boolean update;
-    private JTextField nameBack;
-    private JTextField carpetapadre;
-    private JTextField resolucion;
 
 
     public  FireView(){
@@ -29,9 +26,6 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.controPanel.setVisible(true);
         this.viewer.setVisible(true);
         this.dtoController = new DTOController();
-        this.nameBack = new JTextField("ChimeneaDefault");
-        this.carpetapadre = new JTextField("SimulacionFuegoV2");
-        this.resolucion = new JTextField("512x512");
         this.configureJFrame();
         this.addUIComponents();
         this.pack();
@@ -79,19 +73,10 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         });
 
         panel.add(this.controPanel, c);
-        c.gridy = 1;
-        this.add(this.nameBack,c);
-        c.gridy = 2;
-        this.add(this.carpetapadre,c);
-        c.gridy = 3;
-        this.add(this.resolucion,c);
         c.gridx=3;
         c.gridy = 0;
         this.add(this.controPanel.getPaletteConfiguration(),c);
         createtable();
-
-
-
 
 
     }
@@ -107,9 +92,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         c.weighty = 1;
         c.gridwidth = 1;
         panel.add(this.viewer, c);
-        this.resolucion.setColumns(10);
-        this.carpetapadre.setColumns(10);
-        this.nameBack.setColumns(10);
+
     }
 
 
@@ -164,16 +147,16 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
                 if (resultado == JFileChooser.APPROVE_OPTION) {
                     File backgroundFile = fileChooser.getSelectedFile();
                     String nombrebackground = backgroundFile.getName();
-                    this.nameBack.setText(nombrebackground);
+                    this.controPanel.getAnimationControls().getNameBack().setText(nombrebackground);
                     String carpetapadre = backgroundFile.getParentFile().getName();
-                    this.carpetapadre.setText(carpetapadre);
+                    this.controPanel.getAnimationControls().getCarpetapadre().setText(carpetapadre);
 
                     try {
                         BufferedImage backgroundImage = ImageIO.read(backgroundFile);
                         this.viewer.setBackgroundimg(backgroundImage);
 
                         String resolucion = backgroundImage.getHeight() + "x" + backgroundImage.getWidth();
-                        this.resolucion.setText(resolucion);
+                        this.controPanel.getAnimationControls().getResolucion().setText(resolucion);
 
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
