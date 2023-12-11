@@ -5,7 +5,7 @@ import static java.lang.Thread.sleep;
 
 public class FireController{
 
-    private DTOGeneralParameters dtoGeneralParameters;
+    private DTOController dtoController ;
     private FireView fireviewer;
     private FireModel fireModel;
 
@@ -20,9 +20,9 @@ public class FireController{
 
    
     public FireController() {
-        this.dtoGeneralParameters = new DTOGeneralParameters();
+        this.dtoController = new DTOController();
         this.fireviewer = new FireView();
-        this.fireModel = new FireModel(dtoGeneralParameters);
+        this.fireModel = new FireModel(dtoController);
 
 
     }
@@ -32,15 +32,16 @@ public class FireController{
     public void playAnimation() {
         while (true) {
             if(fireviewer.getUpdate()){
-                setDtoGeneralParameters(this.fireviewer.getDtoGeneralParameters());
-                this.fireModel = new FireModel(dtoGeneralParameters);
+                setDtoController(this.fireviewer.getDtoController());
+                this.fireModel = new FireModel(dtoController);
                 this.fireviewer.setUpdate(false);
             }
-            if (this.fireviewer.getControPanel().animationControls.playPause.isSelected()) {
+            if (this.fireviewer.getControPanel().getAnimationControls().getPlayPause().isSelected()) {
                 this.fireviewer.getViewer().paintBackground();
                 this.fireviewer.getViewer().paintForegroundImage(this.fireModel);
-
-
+                this.fireviewer.getControPanel().getAnimationControls().getPlayPause().setText("Pause");
+            }else{
+                this.fireviewer.getControPanel().getAnimationControls().getPlayPause().setText("Play");
             }
             try {
                 sleep(50);
@@ -66,11 +67,11 @@ public class FireController{
         this.fireModel = fireModel;
     }
 
-    public DTOGeneralParameters getDtoGeneralParameters() {
-        return dtoGeneralParameters;
+    public DTOController dtoController() {
+        return dtoController;
     }
 
-    public void setDtoGeneralParameters(DTOGeneralParameters dtoGeneralParameters) {
-        this.dtoGeneralParameters = dtoGeneralParameters;
+    public void setDtoController(DTOController dtoController) {
+        this.dtoController = dtoController;
     }
 }

@@ -8,11 +8,11 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class AnimationControls extends JPanel {
-    JToggleButton playPause;
-    JButton apply;
-    JButton stopButton;
+    private JToggleButton playPause;
+    private JButton apply;
+    private JButton stopButton;
 
-    JButton changebackgroundimage;
+    private JButton changebackgroundimage;
 
     public AnimationControls(){
         this.setLayout(new GridBagLayout());

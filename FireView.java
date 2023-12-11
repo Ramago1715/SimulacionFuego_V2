@@ -2,6 +2,8 @@ package SimulacionFuego;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,11 +15,12 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
     private Viewer viewer;
     private ControPanel controPanel;
     private FireController fireController;
-    private DTOGeneralParameters dtoGeneralParameters;
+    private DTOController dtoController;
     private Boolean update;
-    JTextField nameBack;
-    JTextField carpetapadre;
-    JTextField resolucion;
+    private JTextField nameBack;
+    private JTextField carpetapadre;
+    private JTextField resolucion;
+
 
     public  FireView(){
         this.update = false;
@@ -25,7 +28,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.viewer = new Viewer(512,512);
         this.controPanel.setVisible(true);
         this.viewer.setVisible(true);
-        this.dtoGeneralParameters = new DTOGeneralParameters();
+        this.dtoController = new DTOController();
         this.nameBack = new JTextField("ChimeneaDefault");
         this.carpetapadre = new JTextField("SimulacionFuegoV2");
         this.resolucion = new JTextField("512x512");
@@ -48,14 +51,33 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
         c.anchor = GridBagConstraints.NORTHWEST;
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy =0;
         c.weightx = 2;
         c.weighty = 1;
-        this.controPanel.animationControls.getPlayPause().addActionListener(this);
-        this.controPanel.animationControls.getApply().addActionListener(this);
-        this.controPanel.animationControls.getStopButton().addActionListener(this);
-        this.controPanel.animationControls.getChangebackgroundimage().addActionListener(this);
+        this.controPanel.getAnimationControls().getPlayPause().addActionListener(this);
+        this.controPanel.getAnimationControls().getApply().addActionListener(this);
+        this.controPanel.getAnimationControls().getStopButton().addActionListener(this);
+        this.controPanel.getAnimationControls().getChangebackgroundimage().addActionListener(this);
+        this.controPanel.getTemperatureConfiguration().getBottonUpTemps().addActionListener(this);
+        this.controPanel.getPaletteConfiguration().getPalettebutton().addActionListener(this);
+        JFormattedTextField colorlistener = this.controPanel.getPaletteConfiguration().getARGBtarget();
+
+        colorlistener.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    Color selectedColor = JColorChooser.showDialog(null, "Seleccione un color", Color.BLACK);
+                    if (selectedColor != null) {
+                        colorlistener.setBackground(selectedColor);
+                        colorlistener.setForeground(new Color(255,255,255,0));
+                        colorlistener.setValue(selectedColor);
+
+                    }
+                }
+            }
+        });
+
         panel.add(this.controPanel, c);
         c.gridy = 1;
         this.add(this.nameBack,c);
@@ -63,6 +85,10 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.add(this.carpetapadre,c);
         c.gridy = 3;
         this.add(this.resolucion,c);
+        c.gridx=3;
+        c.gridy = 0;
+        this.add(this.controPanel.getPaletteConfiguration(),c);
+        createtable();
 
 
     }
@@ -72,7 +98,7 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
         c.anchor = GridBagConstraints.NORTH;
         c.fill = GridBagConstraints.BOTH;
-        c.gridx = 2;
+        c.gridx = 1;
         c.gridy = 0;
         c.weightx = 1;
         c.weighty = 1;
@@ -83,12 +109,15 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.nameBack.setColumns(10);
     }
 
+
     private void configureJFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridBagLayout());
         this.addComponentListener(this);
         setVisible(true);
         this.setResizable(false);
+        setTitle("Fire");
+        setIconImage(new ImageIcon(getClass().getResource("fuego.png")).getImage());
     }
 
 
@@ -100,16 +129,25 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
                 break;
             case "Apply":
-                this.dtoGeneralParameters.setFireWidth(Integer.parseInt(this.controPanel.generalConfiguration.fireWidth.getText()));
-                this.dtoGeneralParameters.setFireHeigth(Integer.parseInt(this.controPanel.generalConfiguration.fireHeigth.getText()));
-                this.dtoGeneralParameters.setFireXPosition(Integer.parseInt(this.controPanel.generalConfiguration.fireXPosition.getText()));
-                this.dtoGeneralParameters.setFireYPosition(Integer.parseInt(this.controPanel.generalConfiguration.fireYPosition.getText()));
+                this.dtoController.getDtoGeneralParameters().setFireWidth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireWidth.getText()));
+                this.dtoController.getDtoGeneralParameters().setFireHeigth(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireHeigth.getText()));
+                this.dtoController.getDtoGeneralParameters().setFireXPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireXPosition.getText()));
+                this.dtoController.getDtoGeneralParameters().setFireYPosition(Integer.parseInt(this.controPanel.getGeneralConfiguration().fireYPosition.getText()));
+                this.dtoController.getDtoTemperatureParameters().setBottonUpTemps(this.controPanel.getTemperatureConfiguration().getBottonUpTemps().isSelected());
+                this.dtoController.getDtoTemperatureParameters().setCellsDivider(Double.parseDouble(this.controPanel.getTemperatureConfiguration().getCellsDivider().getText()));
+                this.dtoController.getDtoTemperatureParameters().setFixAtenuationFactor(Double.parseDouble(this.controPanel.getTemperatureConfiguration().getFixAtenuationFactor().getText()));
+                this.dtoController.getDtoTemperatureParameters().setNewCoolPixelsPercentage(this.controPanel.getTemperatureConfiguration().getNewCoolPixelsPercentage().getValue());
+                this.dtoController.getDtoTemperatureParameters().setNewHotPixelsPercentage(this.controPanel.getTemperatureConfiguration().getNewHotPixelsPercentage().getValue());
+
+                actualizarJTable();
+
+
                 this.update = true;
-                this.controPanel.animationControls.stopButton.doClick();
+                this.controPanel.getAnimationControls().getStopButton().doClick();
 
                 break;
             case "Stop":
-                this.controPanel.animationControls.playPause.setSelected(false);
+                this.controPanel.getAnimationControls().getPlayPause().setSelected(false);
                 this.fireController.getFireModel().getTemperaturas().initblack();
                 this.fireController.getFireModel().deletecolors();
                 this.viewer.paintBackground();
@@ -140,14 +178,38 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
 
                 }
                 break;
+            case "ADD":
+                int temperature = Integer.parseInt(this.controPanel.getPaletteConfiguration().getTemperaturetarget().getValue().toString());
+                Color color = (Color) this.controPanel.getPaletteConfiguration().getARGBtarget().getValue();
+                dtoController.getDtoPaletteParameters().addtarget(temperature,color);
+                this.controPanel.getPaletteConfiguration().getDefaultTableModel().addRow(new Object[]{(Integer)temperature,(Color)color
+                });
+                break;
             default:
                 break;
         }
     }
 
 
+private void createtable(){
+    for(int x =0; x<=this.dtoController.getDtoPaletteParameters().getColortargets().size()-1;x++){
+        this.controPanel.getPaletteConfiguration().getDefaultTableModel().addRow(new Object[]{
+            (Integer)this.dtoController.getDtoPaletteParameters().getColortargets().get(x).getTemperature(),(Color)this.dtoController.getDtoPaletteParameters().getColortargets().get(x).color
+        });
+
+    }
 
 
+}
+private void actualizarJTable(){
+        for (int x = 0;x<= this.controPanel.getTemperatureConfiguration().getCellsPonderation().getRowCount()-1;x++){
+            for (int y = 0;y<=this.controPanel.getTemperatureConfiguration().getCellsPonderation().getColumnCount()-1;y++){
+              double valorcasilla = Double.parseDouble(this.controPanel.getTemperatureConfiguration().getCellsPonderation().getValueAt(x,y).toString());
+              this.getDtoController().getDtoTemperatureParameters().setCellsponderation(x,y,valorcasilla);
+            }
+        }
+
+}
     @Override
     public void componentResized(ComponentEvent e) {
 
@@ -197,12 +259,12 @@ public class FireView extends JFrame implements ComponentListener, ActionListene
         this.fireController = fireController;
     }
 
-    public DTOGeneralParameters getDtoGeneralParameters() {
-        return dtoGeneralParameters;
+    public DTOController getDtoController() {
+        return dtoController;
     }
 
-    public void setDtoGeneralParameters(DTOGeneralParameters dtoGeneralParameters) {
-        this.dtoGeneralParameters = dtoGeneralParameters;
+    public void setDtoController(DTOController dtoController) {
+        this.dtoController = dtoController;
     }
 
     public Boolean getUpdate() {
